@@ -244,25 +244,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   position: "relative",
                 }}
               >
-                <img
-                  src={
-                    {
-                      /*emojiIcon*/
-                    }
-                  }
-                  alt="emojiIcon"
-                  height="20px"
-                  width="20px"
-                  style={{ filter: "contrast(0.3)", marginRight: "5px" }}
-                  onClick={() => setShowEmojiBox(!showEmojiBox)}
-                />
                 {showEmojiBox && (
                   <div
                     style={{
                       position: "absolute",
-                      bottom: "50px",
                       left: "0",
-                      zIndex: "10",
+                      bottom: "45px",
+                      zIndex: "1",
                     }}
                   >
                     {/*  <Picker
@@ -275,12 +263,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 )}
                 <input
                   style={{
-                    width: "100%",
-                    padding: "10px",
+                    width: "95%",
+                    backgroundColor: "white",
                     border: "none",
+                    borderRadius: "5px",
                     outline: "none",
-                    fontSize: "15px",
-                    backgroundColor: "transparent",
+                    padding: "10px",
+                    fontSize: "16px",
                   }}
                   placeholder="Enter a message.."
                   value={newMessage}
@@ -298,14 +287,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             alignItems: "center",
             justifyContent: "center",
             height: "100%",
-            backgroundColor: "#f9fafb",
           }}
         >
           <p
             style={{
-              fontSize: "28px",
-              fontWeight: "600",
-              color: "#6b7280",
+              fontSize: "30px",
+              paddingBottom: "15px",
             }}
           >
             Click On A User to Start Conversation
