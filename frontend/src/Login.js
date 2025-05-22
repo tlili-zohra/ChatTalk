@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -50,7 +50,17 @@ const Login = () => {
       });
     }
   };
-
+  const getUserFromLocalStorage = () => {
+    const result = localStorage.getItem("user");
+    const user = result ? JSON.parse(result) : null;
+    return user;
+  };
+  useEffect(() => {
+    if (getUserFromLocalStorage("user")) {
+      setIsAuthenticated(true);
+      navigate("/");
+    }
+  }, [navigate]);
   return (
     <div className="welcome-container">
       <form className="form" onSubmit={handleLogin}>

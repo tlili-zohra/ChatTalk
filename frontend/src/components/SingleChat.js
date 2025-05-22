@@ -82,7 +82,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       }
     }
   };
-
   useEffect(() => {
     socket = io(`${process.env.REACT_APP_URL}`);
     socket.emit("setup", user);
@@ -144,29 +143,35 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           <div
             style={{
               fontSize: "20px",
-              padding: "10px 15px",
+              padding: "12px 20px",
               width: "100%",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              backgroundColor: "#1f2937",
+              color: "#ffffff",
+              borderTopLeftRadius: "10px",
+              borderTopRightRadius: "10px",
             }}
           >
             <button
               onClick={() => setSelectedChat(undefined)}
               style={{
-                backgroundColor: "#007bff",
+                background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
                 color: "#fff",
-                padding: "10px 20px",
+                padding: "8px 18px",
                 border: "none",
-                borderRadius: "5px",
+                borderRadius: "8px",
                 cursor: "pointer",
-                fontSize: "16px",
+                fontSize: "14px",
+                boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                transition: "0.3s",
               }}
             >
               Back
             </button>
             {!selectedChat.isGroupChat ? (
-              <div style={{ fontSize: "25px", marginRight: "10px" }}>
+              <div style={{ fontSize: "22px", fontWeight: "bold" }}>
                 {getSender(user, selectedChat.users)}
               </div>
             ) : (
@@ -184,42 +189,44 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             style={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "flex-end",
-              padding: "15px",
-              backgroundColor: "#E8E8E8",
+              justifyContent: "space-between",
+              padding: "20px",
+              backgroundColor: "#f3f4f6",
               width: "100%",
-              height: "100%",
-              borderRadius: "10px",
-              overflowY: "hidden",
+              height: "calc(100vh - 130px)",
+              borderRadius: "0 0 12px 12px",
             }}
           >
             {loading ? (
-              <div
-                style={{
-                  alignSelf: "center",
-                  margin: "auto",
-                }}
-              >
+              <div tyle={{ alignSelf: "center", margin: "auto" }}>
                 Loading...
               </div>
             ) : (
               <div
                 className="message"
-                style={{ maxHeight: "90%", overflowY: "auto" }}
+                style={{
+                  flexGrow: 1,
+                  overflowY: "auto",
+                  padding: "10px",
+                  borderRadius: "10px",
+                  backgroundColor: "#ffffff",
+                  boxShadow: "inset 0 1px 3px rgba(0, 0, 0, 0.1)",
+                }}
               >
                 <ScrollableChat messages={messages} />
               </div>
             )}
-            <div
-              style={{
-                height: "10%",
-                marginTop: "10px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
+            <div style={{ marginTop: "10px", width: "100%" }}>
               {isTyping && selectedChat.isGroupChat ? (
-                <div>{getSender(user, selectedChat.users)} is typing ...</div>
+                <div
+                  style={{
+                    color: "#6b7280",
+                    marginBottom: "8px",
+                    fontSize: "14px",
+                  }}
+                >
+                  {getSender(user, selectedChat.users)} is typing ...
+                </div>
               ) : isTyping ? (
                 <div>Typing ...</div>
               ) : (
@@ -227,17 +234,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               )}
               <div
                 style={{
-                  width: "63%",
-                  margin: "auto",
-                  position: "fixed",
-                  bottom: "30px",
-                  border: "1px solid white",
-                  backgroundColor: "white",
+                  width: "100%",
+                  backgroundColor: "#e5e7eb",
                   borderRadius: "10px",
+                  padding: "8px 10px",
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
-                  background: "#E0E0E0",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                  position: "relative",
                 }}
               >
                 <img
@@ -256,9 +260,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   <div
                     style={{
                       position: "absolute",
+                      bottom: "50px",
                       left: "0",
-                      bottom: "45px",
-                      zIndex: "1",
+                      zIndex: "10",
                     }}
                   >
                     {/*  <Picker
@@ -271,13 +275,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 )}
                 <input
                   style={{
-                    width: "95%",
-                    backgroundColor: "white",
-                    border: "none",
-                    borderRadius: "5px",
-                    outline: "none",
+                    width: "100%",
                     padding: "10px",
-                    fontSize: "16px",
+                    border: "none",
+                    outline: "none",
+                    fontSize: "15px",
+                    backgroundColor: "transparent",
                   }}
                   placeholder="Enter a message.."
                   value={newMessage}
@@ -295,12 +298,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             alignItems: "center",
             justifyContent: "center",
             height: "100%",
+            backgroundColor: "#f9fafb",
           }}
         >
           <p
             style={{
-              fontSize: "30px",
-              paddingBottom: "15px",
+              fontSize: "28px",
+              fontWeight: "600",
+              color: "#6b7280",
             }}
           >
             Click On A User to Start Conversation

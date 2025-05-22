@@ -85,39 +85,44 @@ const SideBar = () => {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          padding: "0px 15px",
           alignItems: "center",
-          backgroundColor: "#333",
-          color: "#fff",
+          padding: "10px 20px",
+          backgroundColor: "#1f2937", // dark slate
+          color: "#ffffff",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
         }}
       >
         <button
           onClick={() => setOpen(!open)}
           style={{
-            backgroundColor: "#008CBA",
+            background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
             color: "#fff",
             padding: "10px 20px",
             border: "none",
-            borderRadius: "5px",
+            borderRadius: "8px",
             cursor: "pointer",
-            fontSize: "16px",
+            fontSize: "15px",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+            transition: "all 0.3s ease-in-out",
           }}
         >
           Search User
         </button>
-        <h2>Chat app</h2>
+        <h2 style={{ fontSize: "22px", fontWeight: "bold" }}>Lest's ChaTalk</h2>
         <div>
           {/* <button onClick={() => setOpen(true)}>Notification</button> */}
           <button
             onClick={logoutHandler}
             style={{
-              backgroundColor: "#008CBA",
+              background: "linear-gradient(135deg, #f43f5e, #f97316)",
               color: "#fff",
               padding: "10px 20px",
               border: "none",
-              borderRadius: "5px",
+              borderRadius: "8px",
               cursor: "pointer",
-              fontSize: "16px",
+              fontSize: "15px",
+              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+              transition: "all 0.3s ease-in-out",
             }}
           >
             Logout
@@ -130,27 +135,55 @@ const SideBar = () => {
           style={{
             position: "fixed",
             left: "0",
-            backgroundColor: "#030303c2",
+            top: "60px",
+            backgroundColor: "#111827ee",
             color: "white",
-            height: "70vh",
-            width: "35%",
+            height: "75vh",
+            width: "32%",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            // justifyContent:'center',
-            padding: "10px",
+            padding: "20px",
+            backdropFilter: "blur(6px)",
+            borderTopRightRadius: "12px",
+            borderBottomRightRadius: "12px",
+            boxShadow: "4px 0 12px rgba(0,0,0,0.2)",
+            zIndex: 100,
           }}
         >
-          <h2>Search Users</h2>
+          <h2 style={{ marginBottom: "15px", fontSize: "20px" }}>
+            Search Users
+          </h2>
           {/* <div> */}
           <input
             className="input"
-            style={{ width: "100%" }}
+            style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              marginBottom: "10px",
+              fontSize: "15px",
+            }}
             placeholder="Search by name or email"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button className="btn" onClick={handleSearch}>
+          <button
+            className="btn"
+            style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "8px",
+              backgroundColor: "#3b82f6",
+              color: "#fff",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "15px",
+              marginBottom: "15px",
+            }}
+            onClick={handleSearch}
+          >
             Go
           </button>
           {/* </div> */}
@@ -163,15 +196,23 @@ const SideBar = () => {
                 style={{
                   cursor: "pointer",
                   width: "100%",
-                  backgroundColor: "white",
-                  border: "1px solid black",
-                  borderRadius: "12px",
-                  textAlign: "center",
-                  padding: "10px",
-                  fontWeight: "bolder",
-                  color: "black",
+                  backgroundColor: "#f9fafb",
+                  border: "1px solid #d1d5db",
+                  borderRadius: "10px",
+                  textAlign: "left",
+                  padding: "12px 16px",
+                  marginBottom: "10px",
+                  fontWeight: "500",
+                  color: "#111827",
+                  transition: "background-color 0.3s ease",
                 }}
                 onClick={() => accessChat(user._id)}
+                onMouseOver={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#e0f2fe")
+                }
+                onMouseOut={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#f9fafb")
+                }
               >
                 {user.name}
               </div>

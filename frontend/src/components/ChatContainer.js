@@ -11,14 +11,16 @@ const ChatContainer = ({ fetchAgain, setFetchAgain }) => {
     <div
       style={{
         display: "flex",
-        // display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "5px",
-        backgroundColor: "white",
+        padding: "12px 20px",
+        backgroundColor: "#ffffff",
         width: "66%",
-        border: "1px solid lightgrey",
-        borderRadius: "12px",
+        border: "1.5px solid #d1d5db",
+        borderRadius: "16px",
+        boxShadow: "0 6px 18px rgba(102, 126, 234, 0.1)",
+        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+        minHeight: "400px",
       }}
     >
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />

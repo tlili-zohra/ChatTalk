@@ -143,13 +143,15 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     <>
       <button
         style={{
-          backgroundColor: "#007bff",
+          backgroundColor: "#4A90E2",
           color: "#fff",
-          padding: "10px 20px",
+          padding: "10px 25px",
           border: "none",
-          borderRadius: "5px",
+          borderRadius: "8px",
           cursor: "pointer",
           fontSize: "16px",
+          fontWeight: "500",
+          transition: "0.3s",
         }}
         onClick={() => {
           setIsOpen(true);
@@ -166,37 +168,39 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
             left: 0,
             width: "100vw",
             height: "100vh",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
             display: "flex",
-            zIndex: "5",
-            // flexDirection:'column',
             justifyContent: "center",
             alignItems: "center",
+            zIndex: 10,
           }}
         >
           <div
             style={{
-              background: "white",
-              width: "50vw",
-              // minHeight: "70vh",
-              borderRadius: "10px",
-              overflow: "hidden",
+              background: "#fff",
+              width: "60vw",
+              maxHeight: "90vh",
+              borderRadius: "15px",
+              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
+              overflowY: "auto",
+              padding: "25px 20px",
             }}
           >
             <div
               style={{
                 display: "flex",
-                // alignItems: "center",
                 justifyContent: "center",
                 position: "relative",
-                // border:'5px solid'
-                padding: "5px 0",
+                marginBottom: "20px",
+                borderBottom: "1px solid #ccc",
+                paddingBottom: "10px",
               }}
             >
               <h3
                 style={{
-                  fontSize: "35px",
-                  // textAlign: "center",
+                  fontSize: "28px",
+                  fontWeight: "600",
+                  color: "#333",
                 }}
               >
                 {selectedChat.chatName}
@@ -205,17 +209,18 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
               <button
                 style={{
                   position: "absolute",
-                  right: "5px",
-                  // top:'10px',
-                  backgroundColor: "black",
-                  color: "#fff",
-                  fontWeight: "bolder",
-                  padding: "5px 10px",
+                  right: "0",
+                  top: "0",
+                  backgroundColor: "transparent",
+                  color: "#999",
                   border: "none",
-                  borderRadius: "5px",
+                  fontSize: "20px",
+                  fontWeight: "bold",
                   cursor: "pointer",
-                  fontSize: "10px",
+                  transition: "0.2s",
                 }}
+                onMouseOver={(e) => (e.target.style.color = "#000")}
+                onMouseOut={(e) => (e.target.style.color = "#999")}
                 onClick={() => {
                   setIsOpen(false);
                 }}
@@ -226,10 +231,10 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
             <div
               style={{
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
+                flexWrap: "wrap",
                 justifyContent: "center",
-                // fontFamily: "Poppins",
+                gap: "10px",
+                marginBottom: "20px",
               }}
             >
               <div
@@ -254,21 +259,35 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  width: "80%",
                   alignItems: "center",
+                  gap: "15px",
                 }}
               >
                 <input
                   className="input"
                   placeholder="Chat Name"
-                  style={{ marginBottom: "15px", width: "100%" }}
+                  style={{
+                    width: "100%",
+                    padding: "10px 15px",
+                    border: "1px solid #ccc",
+                    borderRadius: "8px",
+                    fontSize: "16px",
+                  }}
                   value={groupChatName}
                   onChange={(e) => setGroupChatName(e.target.value)}
                 />
 
                 <button
                   className="btn"
-                  style={{ marginLeft: "10px", marginBottom: "25px" }}
+                  style={{
+                    padding: "10px 20px",
+                    border: "none",
+                    backgroundColor: "#28a745",
+                    color: "#fff",
+                    borderRadius: "8px",
+                    fontSize: "16px",
+                    cursor: "pointer",
+                  }}
                   disabled={renameloading}
                   onClick={handleRename}
                 >
@@ -277,26 +296,46 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
                 <input
                   className="input"
                   placeholder="Add User to group"
-                  style={{ marginBottom: "10px", width: "100%" }}
+                  style={{
+                    width: "100%",
+                    padding: "10px 15px",
+                    border: "1px solid #ccc",
+                    borderRadius: "8px",
+                    fontSize: "16px",
+                  }}
                   onChange={(e) => handleSearch(e.target.value)}
                 />
               </div>
-
-              {loading ? (
-                <div>Loading...</div>
-              ) : (
-                searchResult?.map((user) => (
-                  <UserListItem
-                    key={user._id}
-                    user={user}
-                    handleFunction={() => handleAddUser(user)}
-                  />
-                ))
-              )}
-
-              <button className="btn" onClick={() => handleRemove(user)}>
-                Leave Group
-              </button>
+              <div style={{ width: "100%", marginTop: "15px" }}>
+                {loading ? (
+                  <div style={{ textAlign: "center" }}>Loading...</div>
+                ) : (
+                  searchResult?.map((user) => (
+                    <UserListItem
+                      key={user._id}
+                      user={user}
+                      handleFunction={() => handleAddUser(user)}
+                    />
+                  ))
+                )}
+              </div>
+              <div style={{ textAlign: "center", marginTop: "25px" }}>
+                <button
+                  className="btn"
+                  style={{
+                    padding: "10px 20px",
+                    border: "none",
+                    backgroundColor: "#dc3545",
+                    color: "#fff",
+                    borderRadius: "8px",
+                    fontSize: "16px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => handleRemove(user)}
+                >
+                  Leave Group
+                </button>
+              </div>
             </div>
           </div>
         </div>

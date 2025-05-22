@@ -68,7 +68,7 @@ code {
   margin-bottom: 15px;
 }
 
-.welcome-container {
+/*.welcome-container {
   width: 100%;
 
   min-height: 100%;
@@ -80,8 +80,8 @@ code {
   justify-content: space-between;
 
   padding: 10px;
-}
-.btn {
+}*/
+/*.btn {
   padding: 15px;
 
   cursor: pointer;
@@ -112,4 +112,74 @@ code {
 .btn:hover {
   transform: translateY(-4px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+  */
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  min-height: 100vh;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  padding: 20px;
+}
+
+/* الصندوق */
+.form {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+  width: 50%;
+  max-width: 400px;
+  height: 500px;
+}
+
+/* النصوص */
+.form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* حقول الإدخال */
+.input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+/* زر الدخول */
+.btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #667eea;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #5a67d8;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.button-container > button {
+  width: 150px;
 }
