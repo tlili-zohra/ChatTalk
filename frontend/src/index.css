@@ -399,11 +399,11 @@ code {
 @media (max-width: 768px) {
   .hamburger-icon {
     display: block;
-    background-color: #4f46e5;
+    background: linear-gradient(135deg, rgb(79, 70, 229), rgb(59, 130, 246));
     color: white;
     width: fit-content;
     border-radius: 6px;
-    margin: 2px;
+    margin: px;
   }
 
   .mychats-container {
