@@ -10,6 +10,7 @@ import authRoute from "./routes/auth.js";
 import chatRoute from "./routes/chat.js";
 import messageRoute from "./routes/message.js";
 import authenticateUser from "./middleware/auth.js";
+import path from "path";
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
