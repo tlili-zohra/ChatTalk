@@ -284,7 +284,6 @@ code {
     border: none;
   }
 }
-/*MyChats.js*/
 /* MyChats.css */
 .mychats-container {
   border: 1.5px solid #d1d5db;
@@ -385,5 +384,51 @@ code {
   .chat-item {
     margin: 6px;
     padding: 12px 18px;
+  }
+}
+/* جديد: زر الهامبورغر */
+.hamburger-icon {
+  display: none;
+  font-size: 28px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* جديد: القائمة الجانبية على الجوال */
+@media (max-width: 768px) {
+  .hamburger-icon {
+    display: block;
+    background-color: #4f46e5;
+    color: white;
+    width: fit-content;
+    border-radius: 6px;
+    margin: 2px;
+  }
+
+  .mychats-container {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    height: 100%;
+    background: white;
+    z-index: 999;
+    transition: left 0.3s ease-in-out;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .mychats-container.show {
+    left: 0;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 998;
   }
 }
