@@ -78,3 +78,11 @@ io.on("connection", (socket) => {
 });
 
 server.listen(PORT, () => console.log("Server is running on port", PORT));
+// Serve React static files and handle React routing in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "frontend/build")));
+
+  app.get(/^\/(?!api).*/, (req, res) => {
+    res.sendFile(path.join(__dirname, "/frontend/build", "index.html"));
+  });
+}
