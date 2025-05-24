@@ -12,7 +12,9 @@ import { SuprSend } from "@suprsend/web-sdk";
 import { AuthContext } from "../Context/AuthProvider";
 import UpdateGroupChatModel from "./UpdateGroupChatModel ";
 
-const suprsend = new SuprSend("YOUR_WORKSPACE_KEY", "YOUR_WORKSPACE_SECRET");
+const suprsend = new SuprSend(
+  "SS.PUBK.XLyXa890C4s6JPmEiaPjZQRAqxjhB2mzH7wsS69v_EQ"
+);
 
 let socket, selectedChatCompare;
 
