@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./Context/AuthProvider";
 
 const Login = () => {
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { setIsAuthenticated, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState(""); // Add this
   const [password, setPassword] = useState(""); // Add this
 
@@ -36,7 +36,8 @@ const Login = () => {
       });
 
       localStorage.setItem("user", JSON.stringify(data));
-
+      setUser(data);
+      setIsAuthenticated(true);
       setTimeout(() => {
         navigate("/");
       }, 4000);

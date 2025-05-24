@@ -8,6 +8,7 @@ function ProtectedRoute({ children, ...props }) {
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
+    //return <Navigate to="/registre" />;
   }
   return children;
 }
