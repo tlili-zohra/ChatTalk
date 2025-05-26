@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./Context/AuthProvider";
 
 const Login = () => {
@@ -84,9 +84,14 @@ const Login = () => {
           required
           onChange={(e) => setPassword(e.target.value)}
         />
+
         <button type="submit" className="btn">
           Log In
         </button>
+
+        <Link style={{ paddingTop: "10px" }} to="/register">
+          Register
+        </Link>
       </form>
     </div>
   );

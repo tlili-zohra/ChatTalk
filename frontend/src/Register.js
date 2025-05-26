@@ -7,23 +7,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "./Context/AuthProvider";
 
 const Register = () => {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, setIsAuthenticated, setUser } =
+    useContext(AuthContext);
   const [name, setName] = useState(""); // Add this
   const [email, setEmail] = useState(""); // Add this
   const [password, setPassword] = useState(""); // Add this
   const navigate = useNavigate();
 
-  const getUserFromLocalStorage = () => {
-    const result = localStorage.getItem("user");
-    const user = result ? JSON.parse(result) : null;
-    return user;
-  };
-  useEffect(() => {
-    if (getUserFromLocalStorage("user")) {
-      setIsAuthenticated(true);
-      navigate("/");
-    }
-  }, [navigate]);
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -50,6 +40,7 @@ const Register = () => {
       });
 
       localStorage.setItem("user", JSON.stringify(data));
+      setUser(data);
       navigate("/login");
     } catch (error) {
       console.log(error.response.data.error);
@@ -60,7 +51,17 @@ const Register = () => {
       });
     }
   };
-
+  const getUserFromLocalStorage = () => {
+    const result = localStorage.getItem("user");
+    const user = result ? JSON.parse(result) : null;
+    return user;
+  };
+  useEffect(() => {
+    if (getUserFromLocalStorage("user")) {
+      setIsAuthenticated(true);
+      navigate("/");
+    }
+  }, [navigate]);
   return (
     <div className="welcome-container">
       <form className="form" onSubmit={handleRegister}>
