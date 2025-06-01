@@ -114,6 +114,7 @@ code {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
   */
+/*Register*/
 .welcome-container {
   display: flex;
   justify-content: center;
@@ -183,6 +184,7 @@ code {
 .button-container > button {
   width: 150px;
 }
+
 /* ========== Responsive Design ========== */
 @media (max-width: 1024px) {
   .form {
@@ -246,6 +248,420 @@ code {
     padding: 10px;
   }
 }
+/*Regsistre*/
+.register-page {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #54b1d6, #54afd3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+.register-form {
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2.5rem 3rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 400px;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.8s ease;
+}
+
+.form-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  text-align: center;
+}
+
+.register-input {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.register-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.register-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.btn-register,
+.btn-login {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-register {
+  background-color: #3a92d4;
+  color: #ffffff;
+}
+
+.btn-register:hover {
+  background-color: #2b6ca3;
+}
+
+.btn-login {
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.btn-login:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Bubbles (نفس الموجودة في صفحة login) */
+.bubbles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  transform-style: preserve-3d;
+}
+
+.bubbles span {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.05)
+  );
+  border-radius: 50%;
+  filter: blur(2px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  transform: rotateX(25deg) rotateY(15deg) translateZ(20px);
+}
+
+.bubbles span:nth-child(1) {
+  top: 10%;
+  left: 20%;
+  transform: translateZ(10px);
+}
+.bubbles span:nth-child(2) {
+  top: 30%;
+  left: 70%;
+  transform: translateZ(40px);
+}
+.bubbles span:nth-child(3) {
+  top: 60%;
+  left: 40%;
+  transform: translateZ(20px);
+}
+.bubbles span:nth-child(4) {
+  top: 20%;
+  left: 80%;
+  transform: translateZ(50px);
+}
+.bubbles span:nth-child(5) {
+  top: 50%;
+  left: 15%;
+  transform: translateZ(30px);
+}
+.bubbles span:nth-child(6) {
+  top: 75%;
+  left: 60%;
+  transform: translateZ(10px);
+}
+.bubbles span:nth-child(7) {
+  top: 85%;
+  left: 30%;
+  transform: translateZ(60px);
+}
+.bubbles span:nth-child(8) {
+  top: 40%;
+  left: 90%;
+  transform: translateZ(15px);
+}
+.bubbles span:nth-child(9) {
+  top: 35%;
+  left: 10%;
+  transform: translateZ(25px);
+}
+.bubbles span:nth-child(10) {
+  top: 65%;
+  left: 80%;
+  transform: translateZ(35px);
+}
+.bubbles span:nth-child(11) {
+  top: 25%;
+  left: 50%;
+  transform: translateZ(45px);
+}
+.bubbles span:nth-child(12) {
+  top: 55%;
+  left: 70%;
+  transform: translateZ(55px);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Login.css */
+/* الحاوية الرئيسية */
+.login-container {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #54b1d6, #54afd3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  overflow: hidden;
+  perspective: 1000px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* الفقاعات في الخلف */
+.bubbles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  transform-style: preserve-3d;
+}
+
+.bubbles span {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.05)
+  );
+  border-radius: 50%;
+  filter: blur(2px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  transform: rotateX(25deg) rotateY(15deg) translateZ(20px);
+}
+
+.bubbles span:nth-child(1) {
+  top: 10%;
+  left: 20%;
+  transform: translateZ(10px);
+}
+.bubbles span:nth-child(2) {
+  top: 30%;
+  left: 70%;
+  transform: translateZ(40px);
+}
+.bubbles span:nth-child(3) {
+  top: 60%;
+  left: 40%;
+  transform: translateZ(20px);
+}
+.bubbles span:nth-child(4) {
+  top: 20%;
+  left: 80%;
+  transform: translateZ(50px);
+}
+.bubbles span:nth-child(5) {
+  top: 50%;
+  left: 15%;
+  transform: translateZ(30px);
+}
+.bubbles span:nth-child(6) {
+  top: 75%;
+  left: 60%;
+  transform: translateZ(10px);
+}
+.bubbles span:nth-child(7) {
+  top: 85%;
+  left: 30%;
+  transform: translateZ(60px);
+}
+.bubbles span:nth-child(8) {
+  top: 40%;
+  left: 90%;
+  transform: translateZ(15px);
+}
+.bubbles span:nth-child(9) {
+  top: 35%;
+  left: 10%;
+  transform: translateZ(25px);
+}
+.bubbles span:nth-child(10) {
+  top: 65%;
+  left: 80%;
+  transform: translateZ(35px);
+}
+.bubbles span:nth-child(11) {
+  top: 25%;
+  left: 50%;
+  transform: translateZ(45px);
+}
+.bubbles span:nth-child(12) {
+  top: 55%;
+  left: 70%;
+  transform: translateZ(55px);
+}
+
+/* فورم الدخول */
+.login-form {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 2.5rem 3rem;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+/* عنوان الفورم */
+.form-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  letter-spacing: 1.2px;
+}
+
+/* الحقول */
+.form-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: white;
+  font-size: 1rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  transition: border-color 0.3s ease;
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #f8f9fa;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* حقل الباسوورد مع أيقونة التبديل */
+.password-field {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  top: 40%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.3rem;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+  color: #f8f9fa;
+}
+
+/* زر تسجيل الدخول */
+.form-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #3a92d4;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #2b6ca3;
+}
+
+/* الفوتر داخل الفورم */
+.form-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.register-link {
+  color: #083280;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  color: #fff;
+}
+
+/* أنيميشن الظهور */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toggle-password svg {
+  color: #777;
+  transition: color 0.2s ease;
+}
+
+.toggle-password:hover svg {
+  color: #333;
+}
+
+/*end login*/
+
 .chat-container {
   display: flex;
   flex-direction: column;

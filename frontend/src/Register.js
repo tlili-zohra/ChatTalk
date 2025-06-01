@@ -63,53 +63,56 @@ const Register = () => {
     }
   }, [navigate]);
   return (
-    <div className="welcome-container">
-      <form className="form" onSubmit={handleRegister}>
-        <label htmlFor="name">Enter your name</label>
+    <div className="register-page">
+      <form className="register-form" onSubmit={handleRegister}>
+        <h2 className="form-title">Register</h2>
         <input
-          type="string"
-          name="name"
+          type="text"
           id="name"
-          className="input"
-          required
-          onChange={(e) => setName(e.target.value)}
           value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="register-input"
+          placeholder="Your full name"
         />
-        <label htmlFor="email">Enter your email</label>
         <input
           type="email"
-          name="email"
           id="email"
-          className="input"
-          required
-          onChange={(e) => setEmail(e.target.value)}
           value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="register-input"
+          placeholder="Your email address"
         />
-        <label htmlFor="password">Choose a password</label>
         <input
           type="password"
-          name="password"
-          className="input"
           id="password"
-          required
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
+          className="register-input"
+          placeholder="Create a password"
         />
 
-        <div className="button-container">
-          <button type="submit" className="btn">
+        <div className="register-buttons">
+          <button type="submit" className="btn-register">
             Register
           </button>
           <button
-            className="btn"
-            onClick={() => {
-              console.log("nav to loggiinn");
-              navigate("/login");
-            }}
+            type="button"
+            className="btn-login"
+            onClick={() => navigate("/login")}
           >
             Log In
           </button>
         </div>
       </form>
+
+      <div className="bubbles">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <span key={i}></span>
+        ))}
+      </div>
     </div>
   );
 };

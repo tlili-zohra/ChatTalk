@@ -4,11 +4,13 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./Context/AuthProvider";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const { setIsAuthenticated, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState(""); // Add this
   const [password, setPassword] = useState(""); // Add this
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -63,36 +65,55 @@ const Login = () => {
     }
   }, [navigate]);
   return (
-    <div className="welcome-container">
-      <form className="form" onSubmit={handleLogin}>
-        <label htmlFor="email">Provide your email</label>
+    <div className="login-container">
+      <ToastContainer />
+      <form className="login-form" onSubmit={handleLogin}>
+        <h2 className="form-title">Welcome Back</h2>
+
         <input
           type="email"
-          name="email"
-          className="input"
           id="email"
+          className="form-input"
           required
-          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
           value={email}
-        />
-        <label htmlFor="password">Enter your password</label>
-        <input
-          type="password"
-          className="input"
-          name="password"
-          id="password"
-          required
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
-        <button type="submit" className="btn">
+        <div className="password-field">
+          <input
+            type={showPassword ? "text" : "password"}
+            id="password"
+            className="form-input"
+            required
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <span
+            className="toggle-password"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
+
+        <button type="submit" className="form-button">
           Log In
         </button>
 
-        <Link style={{ paddingTop: "10px" }} to="/register">
-          Register
-        </Link>
+        <p className="form-footer">
+          Don’t have an account?{" "}
+          <Link to="/register" className="register-link">
+            Register
+          </Link>
+        </p>
       </form>
+      <div className="bubbles">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <span key={i}></span>
+        ))}
+      </div>
     </div>
   );
 };
