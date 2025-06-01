@@ -48,12 +48,12 @@ const MyChats = ({ fetchAgain }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mychats-header">
-          <p style={{ marginLeft: "5px" }}>ChaTalk</p>
+          <p style={{ marginLeft: "5px" }}>Let's ChaTalk</p>
           <GroupChatModal>
             <button
               className="new-group-btn"
               onMouseEnter={(e) =>
-                (e.currentTarget.style.backgroundColor = "#4338ca")
+                (e.currentTarget.style.backgroundColor = "#052a91")
               }
               onMouseLeave={(e) =>
                 (e.currentTarget.style.backgroundColor = "#4f46e5")

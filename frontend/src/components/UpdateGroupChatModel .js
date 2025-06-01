@@ -142,6 +142,7 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   return (
     <>
       <button
+        onClick={() => setIsOpen(true)}
         style={{
           backgroundColor: "#4A90E2",
           color: "#fff",
@@ -151,10 +152,7 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           cursor: "pointer",
           fontSize: "16px",
           fontWeight: "500",
-          transition: "0.3s",
-        }}
-        onClick={() => {
-          setIsOpen(true);
+          transition: "all 0.3s ease",
         }}
       >
         View
@@ -168,174 +166,145 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
             left: 0,
             width: "100vw",
             height: "100vh",
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backgroundColor: "rgba(0,0,0,0.6)",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            zIndex: 10,
+            zIndex: 1000,
           }}
         >
           <div
             style={{
-              background: "#fff",
-              width: "60vw",
+              width: "600px",
               maxHeight: "90vh",
-              borderRadius: "15px",
-              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
+              background: "#fefefe",
+              borderRadius: "20px",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+              padding: "30px",
               overflowY: "auto",
-              padding: "25px 20px",
+              position: "relative",
+              animation: "fadeIn 0.4s ease-in-out",
             }}
           >
-            <div
+            <button
+              onClick={() => setIsOpen(false)}
               style={{
-                display: "flex",
-                justifyContent: "center",
-                position: "relative",
-                marginBottom: "20px",
-                borderBottom: "1px solid #ccc",
-                paddingBottom: "10px",
+                position: "absolute",
+                top: "15px",
+                right: "20px",
+                fontSize: "22px",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                color: "#999",
               }}
+              title="Close"
             >
-              <h3
-                style={{
-                  fontSize: "28px",
-                  fontWeight: "600",
-                  color: "#333",
-                }}
-              >
-                {selectedChat.chatName}
-              </h3>
+              ✕
+            </button>
 
-              <button
-                style={{
-                  position: "absolute",
-                  right: "0",
-                  top: "0",
-                  backgroundColor: "transparent",
-                  color: "#999",
-                  border: "none",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                  transition: "0.2s",
-                }}
-                onMouseOver={(e) => (e.target.style.color = "#000")}
-                onMouseOut={(e) => (e.target.style.color = "#999")}
-                onClick={() => {
-                  setIsOpen(false);
-                }}
-              >
-                X
-              </button>
-            </div>
+            <h2
+              style={{ textAlign: "center", fontSize: "26px", color: "#333" }}
+            >
+              {selectedChat.chatName}
+            </h2>
+
             <div
               style={{
+                marginTop: "20px",
                 display: "flex",
                 flexWrap: "wrap",
-                justifyContent: "center",
                 gap: "10px",
-                marginBottom: "20px",
+                justifyContent: "center",
               }}
             >
-              <div
+              {selectedChat.users.map((u) => (
+                <UserBadgeItem
+                  key={u._id}
+                  user={u}
+                  admin={selectedChat.groupAdmin}
+                  handleFunction={() => handleRemove(u)}
+                />
+              ))}
+            </div>
+
+            <div style={{ marginTop: "30px" }}>
+              <input
+                type="text"
+                value={groupChatName}
+                onChange={(e) => setGroupChatName(e.target.value)}
+                placeholder="Enter new group name"
                 style={{
                   width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  flexWrap: "wrap",
-                  paddingBottom: "15px",
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "1px solid #ccc",
+                  fontSize: "16px",
+                  marginBottom: "15px",
                 }}
-              >
-                {selectedChat.users.map((u) => (
-                  <UserBadgeItem
-                    key={u._id}
-                    user={u}
-                    admin={selectedChat.groupAdmin}
-                    handleFunction={() => handleRemove(u)}
-                  />
-                ))}
-              </div>
-              <div
+              />
+              <button
+                onClick={handleRename}
+                disabled={renameloading}
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "15px",
+                  background: "#4CAF50",
+                  color: "#fff",
+                  border: "none",
+                  padding: "10px 20px",
+                  borderRadius: "10px",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  width: "100%",
                 }}
               >
-                <input
-                  className="input"
-                  placeholder="Chat Name"
-                  style={{
-                    width: "100%",
-                    padding: "10px 15px",
-                    border: "1px solid #ccc",
-                    borderRadius: "8px",
-                    fontSize: "16px",
-                  }}
-                  value={groupChatName}
-                  onChange={(e) => setGroupChatName(e.target.value)}
-                />
+                {renameloading ? "Updating..." : "Update Group Name"}
+              </button>
+            </div>
 
-                <button
-                  className="btn"
-                  style={{
-                    padding: "10px 20px",
-                    border: "none",
-                    backgroundColor: "#28a745",
-                    color: "#fff",
-                    borderRadius: "8px",
-                    fontSize: "16px",
-                    cursor: "pointer",
-                  }}
-                  disabled={renameloading}
-                  onClick={handleRename}
-                >
-                  Update
-                </button>
-                <input
-                  className="input"
-                  placeholder="Add User to group"
-                  style={{
-                    width: "100%",
-                    padding: "10px 15px",
-                    border: "1px solid #ccc",
-                    borderRadius: "8px",
-                    fontSize: "16px",
-                  }}
-                  onChange={(e) => handleSearch(e.target.value)}
-                />
-              </div>
-              <div style={{ width: "100%", marginTop: "15px" }}>
-                {loading ? (
-                  <div style={{ textAlign: "center" }}>Loading...</div>
-                ) : (
-                  searchResult?.map((user) => (
-                    <UserListItem
-                      key={user._id}
-                      user={user}
-                      handleFunction={() => handleAddUser(user)}
-                    />
-                  ))
-                )}
-              </div>
-              <div style={{ textAlign: "center", marginTop: "25px" }}>
-                <button
-                  className="btn"
-                  style={{
-                    padding: "10px 20px",
-                    border: "none",
-                    backgroundColor: "#dc3545",
-                    color: "#fff",
-                    borderRadius: "8px",
-                    fontSize: "16px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => handleRemove(user)}
-                >
-                  Leave Group
-                </button>
-              </div>
+            <div style={{ marginTop: "25px" }}>
+              <input
+                type="text"
+                onChange={(e) => handleSearch(e.target.value)}
+                placeholder="Search users to add"
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "10px",
+                  border: "1px solid #ccc",
+                  fontSize: "16px",
+                }}
+              />
+            </div>
+
+            <div style={{ marginTop: "20px" }}>
+              {loading ? (
+                <p style={{ textAlign: "center" }}>Loading...</p>
+              ) : (
+                searchResult?.map((user) => (
+                  <UserListItem
+                    key={user._id}
+                    user={user}
+                    handleFunction={() => handleAddUser(user)}
+                  />
+                ))
+              )}
+            </div>
+
+            <div style={{ textAlign: "center", marginTop: "30px" }}>
+              <button
+                onClick={() => handleRemove(user)}
+                style={{
+                  background: "#e74c3c",
+                  color: "#fff",
+                  border: "none",
+                  padding: "10px 25px",
+                  borderRadius: "10px",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                }}
+              >
+                Leave Group
+              </button>
             </div>
           </div>
         </div>

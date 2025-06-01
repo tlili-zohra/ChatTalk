@@ -9,6 +9,9 @@ import { AuthContext } from "../Context/AuthProvider";
 import io from "socket.io-client";
 import { getSender } from "../config/chat";
 import { ReactComponent as BellIcon } from "../images/notification-bell-svgrepo-com.svg";
+import { FiLogOut } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
+import chaticon from "../images/chaticone.png";
 
 const SideBar = () => {
   const [search, setSearch] = useState("");
@@ -114,29 +117,38 @@ const SideBar = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "10px 20px",
-          backgroundColor: "#1f2937", // dark slate
+          padding: "0px 20px",
+          background:
+            "linear-gradient(135deg,rgb(200, 226, 241),rgb(108, 179, 247))", // dark slate
           color: "#ffffff",
           boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
         }}
       >
-        <button
+        <div
           onClick={() => setOpen(!open)}
           style={{
-            background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
-            color: "#fff",
-            padding: "10px 20px",
-            border: "none",
-            borderRadius: "8px",
+            display: "inline-flex",
+            alignItems: "center",
             cursor: "pointer",
-            fontSize: "15px",
-            boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-            transition: "all 0.3s ease-in-out",
+            color: "#667eea", // لون أزرق جذاب
+            fontWeight: "600",
+            fontSize: "16px",
+            gap: "8px",
+            userSelect: "none",
+            position: "relative",
+            padding: "4px 8px",
+            borderRadius: "6px",
+            transition: "color 0.3s ease",
           }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "#4c51bf")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "#667eea")}
         >
+          <FiSearch size={20} />
           Search User
-        </button>
-        <h2 style={{ fontSize: "22px", fontWeight: "bold" }}>Lest's ChaTalk</h2>
+        </div>
+        <h2 style={{ fontSize: "22px", fontWeight: "bold" }}>
+          <img src={chaticon} style={{ width: "20px" }} /> ChaTalk
+        </h2>
         <div style={{ display: "flex", gap: "10px" }}>
           {/* <button onClick={() => setOpen(true)}>Notification</button> */}
           <button
@@ -144,34 +156,26 @@ const SideBar = () => {
               background: "transparent", // إزالة الخلفية
               border: "none", // إزالة الحدود لو موجودة
               cursor: "pointer",
-              position: "relative",
               padding: "10px",
-              boxShadow: "0 6px 12px rgba(0,0,0,0.2)", // ظل خفيف بدون لون خلفية
               borderRadius: "8px",
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
             }}
             onClick={() => setShowNotifications(!showNotifications)}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 8px 16px ";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 6px 12px ";
-            }}
           >
             <BellIcon style={{ width: 24, height: 24 }} />
             {notification.length > 0 && (
               <span
                 style={{
-                  position: "absolute",
+                  position: "relative",
                   top: "-6px",
                   right: "-6px",
                   background: "#ef4444", // أحمر فاتح
                   borderRadius: "50%",
                   color: "#fff",
                   padding: "4px 8px",
-                  fontSize: "12px",
+                  fontSize: "9px",
                   fontWeight: "700",
                   boxShadow: "0 0 5px rgba(239, 68, 68, 0.7)",
                 }}
@@ -183,17 +187,27 @@ const SideBar = () => {
           <button
             onClick={logoutHandler}
             style={{
-              background: "linear-gradient(135deg, #f43f5e, #f97316)",
-              color: "#fff",
-              padding: "10px 20px",
+              color: "white",
+              background: "none", // بدون خلفية
+
               border: "none",
-              borderRadius: "8px",
+              padding: "10px 18px",
+              fontSize: "16px",
+              fontWeight: "bold",
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
               cursor: "pointer",
-              fontSize: "15px",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
               transition: "all 0.3s ease-in-out",
             }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.color = "rgba(239, 68, 68, 0.7)"; // لون داكن عند hover
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.color = "white"; // يرجع للون الأصلي
+            }}
           >
+            <FiLogOut size={20} />
             Logout
           </button>
         </div>
@@ -386,7 +400,7 @@ const SideBar = () => {
             position: "absolute",
             right: "0",
             top: "60px",
-            backgroundColor: "#1f2937", // خلفية داكنة هادئة
+            backgroundColor: "rgb(141, 191, 241)", // خلفية داكنة هادئة
             color: "white",
             height: "75vh",
             width: "32%",
@@ -400,7 +414,7 @@ const SideBar = () => {
             boxShadow: "-6px 0 20px rgba(0,0,0,0.3)",
             zIndex: 100,
             animation: "fadeInScale 0.25s ease forwards",
-            transformOrigin: "top right",
+            transformOrigin: "top left",
             fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
           }}
         >
@@ -414,7 +428,7 @@ const SideBar = () => {
               height: 0,
               borderLeft: "12px solid transparent",
               borderRight: "12px solid transparent",
-              borderBottom: "12px solid #1f2937",
+              borderBottom: "12px solid rgb(141, 191, 241)",
               filter: "drop-shadow(-1px 1px 1px rgba(0,0,0,0.1))",
             }}
           />
@@ -423,7 +437,7 @@ const SideBar = () => {
           <div
             style={{
               padding: "16px 24px",
-              backgroundColor: "#334155",
+              backgroundColor: "rgb(8, 83, 158)",
               fontWeight: "700",
               fontSize: "20px",
               display: "flex",
@@ -462,7 +476,7 @@ const SideBar = () => {
               width: "100%",
               maxHeight: "calc(75vh - 100px)",
               overflowY: "auto",
-              backgroundColor: "#f1f5f9",
+              backgroundColor: "#ffff",
               color: "#1e293b",
               borderRadius: "12px",
               boxShadow: "0 4px 10px rgba(0,0,0,0.1)",

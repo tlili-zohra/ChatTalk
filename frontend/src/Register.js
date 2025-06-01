@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { AuthContext } from "./Context/AuthProvider";
 
@@ -12,6 +13,8 @@ const Register = () => {
   const [name, setName] = useState(""); // Add this
   const [email, setEmail] = useState(""); // Add this
   const [password, setPassword] = useState(""); // Add this
+  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -84,15 +87,23 @@ const Register = () => {
           className="register-input"
           placeholder="Your email address"
         />
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="register-input"
-          placeholder="Create a password"
-        />
+        <div className="password-field">
+          <input
+            type={showPassword ? "text" : "password"}
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="register-input"
+            placeholder="Create a password"
+          />
+          <span
+            className="toggle-password"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
 
         <div className="register-buttons">
           <button type="submit" className="btn-register">

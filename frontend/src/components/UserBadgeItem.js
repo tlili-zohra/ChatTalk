@@ -10,15 +10,15 @@ const UserBadgeItem = ({ user, handleFunction, admin }) => {
         fontSize: "13px",
         fontWeight: "500",
         borderRadius: "9999px",
-        backgroundColor: "#6f42c1", // Purple shade
+        backgroundColor: "#4f46e5", // Purple shade
         color: "#fff",
         cursor: "pointer",
         boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
         transition: "background 0.3s ease",
       }}
       onClick={handleFunction}
-      onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#5a32a3")}
-      onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#6f42c1")}
+      onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#052a91")}
+      onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#4f46e5")}
     >
       {user.name}
       {admin === user._id && <span> (Admin)</span>}

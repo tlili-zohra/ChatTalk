@@ -99,95 +99,62 @@ const GroupChatModal = ({ children }) => {
             right: 0,
             bottom: 0,
             zIndex: 1000,
-            backgroundColor: "rgba(21, 21, 21, 0.6)",
+            backgroundColor: "rgba(0,0,0,0.6)",
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             padding: "20px",
-            fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
           }}
         >
-          <h2 style={{ color: "#f9fafb", marginBottom: "20px" }}>
-            Create Group Chat
-          </h2>
-          <div>
-            <button
-              className="btn"
-              style={{
-                position: "fixed",
-                top: "15px",
-                right: "15px",
-                backgroundColor: "#ef4444",
-                color: "white",
-                border: "none",
-                borderRadius: "8px",
-                padding: "8px 14px",
-                fontWeight: "600",
-                cursor: "pointer",
-                boxShadow: "0 3px 8px rgba(239, 68, 68, 0.4)",
-                transition: "background-color 0.3s ease",
-                zIndex: 1100,
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.backgroundColor = "#dc2626")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.backgroundColor = "#ef4444")
-              }
-              onClick={() => setIsOpen(false)}
-            >
-              Close
-            </button>
-          </div>
           <div
             style={{
+              position: "relative",
               width: "100%",
-              maxWidth: "420px",
+              maxWidth: "500px",
               backgroundColor: "#ffffff",
               borderRadius: "16px",
-              padding: "25px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              boxShadow: "0 8px 20px rgba(0, 0, 0, 0.1)",
+              padding: "30px",
+              boxShadow: "0 12px 24px rgba(0, 0, 0, 0.2)",
+              fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
             }}
           >
-            <input
+            {/* Close X */}
+            <button
+              onClick={() => setIsOpen(false)}
               style={{
-                width: "100%",
-                margin: "12px 0",
-                padding: "12px 15px",
-                borderRadius: "8px",
-                border: "1.5px solid #d1d5db",
-                outline: "none",
-                fontSize: "16px",
-                transition: "border-color 0.3s ease",
+                position: "absolute",
+                top: "15px",
+                right: "20px",
+                background: "none",
+                border: "none",
+                fontSize: "20px",
+                fontWeight: "bold",
+                cursor: "pointer",
+                color: "#6b7280",
               }}
-              className="input"
+              aria-label="Close"
+            >
+              ×
+            </button>
+
+            <h2 style={{ textAlign: "center", color: "#1f2937" }}>
+              Create Group Chat
+            </h2>
+
+            <input
               placeholder="Group Name"
               onChange={(e) => setGroupChatName(e.target.value)}
-              onFocus={(e) => (e.target.style.borderColor = "#4f46e5")}
-              onBlur={(e) => (e.target.style.borderColor = "#d1d5db")}
+              style={inputStyle}
             />
+
             <input
-              style={{
-                width: "100%",
-                margin: "12px 0",
-                padding: "12px 15px",
-                borderRadius: "8px",
-                border: "1.5px solid #d1d5db",
-                outline: "none",
-                fontSize: "16px",
-                transition: "border-color 0.3s ease",
-              }}
-              className="input"
-              placeholder="Add Users:"
+              placeholder="Add Users"
               onChange={(e) => handleSearch(e.target.value)}
-              onFocus={(e) => (e.target.style.borderColor = "#4f46e5")}
-              onBlur={(e) => (e.target.style.borderColor = "#d1d5db")}
+              style={inputStyle}
             />
-            <div style={{ width: "100%", marginTop: "12px" }}>
+
+            {/* Selected Users */}
+            <div style={{ marginTop: "10px" }}>
               {selectedUsers.map((u) => (
                 <UserBadgeItem
                   key={u._id}
@@ -196,16 +163,12 @@ const GroupChatModal = ({ children }) => {
                 />
               ))}
             </div>
-            <div style={{ width: "100%", marginTop: "12px" }}>
+
+            {/* Search Results */}
+            <div style={{ marginTop: "10px" }}>
               {loading ? (
-                <div
-                  style={{
-                    textAlign: "center",
-                    color: "#6b7280",
-                    fontStyle: "italic",
-                  }}
-                >
-                  Loading...
+                <div style={{ textAlign: "center", color: "#6b7280" }}>
+                  Searching...
                 </div>
               ) : (
                 searchResult
@@ -219,35 +182,48 @@ const GroupChatModal = ({ children }) => {
                   ))
               )}
             </div>
+
+            {/* Create Button */}
+            <button
+              onClick={handleSubmit}
+              style={{
+                width: "100%",
+                marginTop: "25px",
+                padding: "12px",
+                backgroundColor: "#2563eb",
+                color: "white",
+                border: "none",
+                borderRadius: "8px",
+                fontWeight: "600",
+                fontSize: "16px",
+                cursor: "pointer",
+                transition: "background-color 0.3s ease",
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = "#1d4ed8")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "#2563eb")
+              }
+            >
+              Create Chat
+            </button>
           </div>
-          <button
-            style={{
-              marginTop: "25px",
-              padding: "12px 40px",
-              backgroundColor: "#4f46e5",
-              color: "white",
-              fontWeight: "700",
-              borderRadius: "10px",
-              border: "none",
-              cursor: "pointer",
-              boxShadow: "0 4px 15px rgba(79, 70, 229, 0.5)",
-              transition: "background-color 0.3s ease",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor = "#4338ca")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor = "#4f46e5")
-            }
-            className="btn"
-            onClick={handleSubmit}
-          >
-            Create Chat
-          </button>
         </div>
       )}
     </>
   );
 };
 
+// Reusable input style
+const inputStyle = {
+  width: "100%",
+  marginTop: "15px",
+  padding: "12px 15px",
+  borderRadius: "8px",
+  border: "1.5px solid #d1d5db",
+  fontSize: "16px",
+  outline: "none",
+  transition: "border-color 0.3s ease",
+};
 export default GroupChatModal;

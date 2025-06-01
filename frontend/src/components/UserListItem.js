@@ -14,7 +14,7 @@ const UserListItem = ({ user, handleFunction }) => {
         width: "45%",
       }}
       onMouseEnter={(e) => {
-        e.target.style.background = "rgba(67, 43, 255, 0.8)";
+        e.target.style.background = "rgba(94, 155, 247, 0.8)";
         e.target.style.color = "white";
       }}
       onMouseLeave={(e) => {

@@ -11,6 +11,8 @@ import io from "socket.io-client";
 import { SuprSend } from "@suprsend/web-sdk";
 import { AuthContext } from "../Context/AuthProvider";
 import UpdateGroupChatModel from "./UpdateGroupChatModel ";
+import chaticon from "../images/chaticone.png";
+import EmojiPicker from "emoji-picker-react";
 
 const suprsend = new SuprSend(
   "SS.PUBK.XLyXa890C4s6JPmEiaPjZQRAqxjhB2mzH7wsS69v_EQ"
@@ -26,6 +28,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [showEmojiBox, setShowEmojiBox] = useState(false);
+
+  const handleEmojiClick = (emojiData) => {
+    setNewMessage((prev) => prev + emojiData.emoji);
+  };
 
   const { user, notification, setNotification, selectedChat, setSelectedChat } =
     useContext(AuthContext);
@@ -150,7 +156,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              backgroundColor: "#1f2937",
+              background:
+                "linear-gradient(135deg,rgb(38, 161, 233),rgb(21, 88, 196))",
               color: "#ffffff",
               borderTopLeftRadius: "10px",
               borderTopRightRadius: "10px",
@@ -159,7 +166,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             <button
               onClick={() => setSelectedChat(undefined)}
               style={{
-                background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
+                background:
+                  "linear-gradient(135deg,rgb(38, 161, 233),rgb(21, 88, 196))",
                 color: "#fff",
                 padding: "8px 18px",
                 border: "none",
@@ -195,7 +203,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               padding: "20px",
               backgroundColor: "#f3f4f6",
               width: "100%",
-              height: "calc(100vh - 130px)",
+              height: "calc(96vh - 130px)",
               borderRadius: "0 0 12px 12px",
             }}
           >
@@ -248,36 +256,47 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               >
                 {showEmojiBox && (
                   <div
-                    style={{
-                      position: "absolute",
-                      left: "0",
-                      bottom: "45px",
-                      zIndex: "1",
-                    }}
+                    style={{ position: "absolute", bottom: "50px", left: "0" }}
                   >
-                    {/*  <Picker
-                      data={data}
-                      onEmojiSelect={(emoji) =>
-                        setNewMessage(newMessage.concat(emoji.native))
-                      }
-                    />*/}
+                    <EmojiPicker onEmojiClick={handleEmojiClick} />
                   </div>
                 )}
-                <input
+                <div
                   style={{
-                    width: "95%",
-                    backgroundColor: "white",
-                    border: "none",
-                    borderRadius: "5px",
-                    outline: "none",
-                    padding: "10px",
-                    fontSize: "16px",
+                    width: "100%",
+                    backgroundColor: "#e5e7eb",
+                    borderRadius: "10px",
+                    padding: "8px 10px",
+                    display: "flex",
+                    alignItems: "center",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
                   }}
-                  placeholder="Enter a message.."
-                  value={newMessage}
-                  onKeyDown={sendMessage}
-                  onChange={typingHandler}
-                />
+                >
+                  <button
+                    onClick={() => setShowEmojiBox((prev) => !prev)}
+                    style={{ border: "0px", background: "transparent" }}
+                  >
+                    😊
+                  </button>
+                  <input
+                    style={{
+                      width: "95%",
+                      backgroundColor: "white",
+                      border: "none",
+                      borderRadius: "5px",
+                      outline: "none",
+                      padding: "10px",
+                      fontSize: "16px",
+                    }}
+                    placeholder="Enter a message..."
+                    value={newMessage}
+                    onChange={(e) => {
+                      setNewMessage(e.target.value);
+                      typingHandler(e);
+                    }}
+                    onKeyDown={sendMessage}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -286,18 +305,38 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         <div
           style={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            height: "100%",
+            height: "100vh",
+            textAlign: "center",
+            color: "#197df0",
+            padding: "20px",
           }}
         >
+          <img
+            src={chaticon}
+            alt="Click icon"
+            style={{
+              width: "100px",
+              height: "100px",
+              marginBottom: "20px",
+              transition: "transform 0.3s",
+              cursor: "pointer",
+            }}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.transform = "scale(1.2)")
+            }
+            onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          />
           <p
             style={{
-              fontSize: "30px",
-              paddingBottom: "15px",
+              fontSize: "28px",
+              fontWeight: "600",
+              maxWidth: "90%",
             }}
           >
-            Click On A User to Start Conversation
+            Click on a user to start a fun conversation!
           </p>
         </div>
       )}
