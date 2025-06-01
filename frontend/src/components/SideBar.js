@@ -1,91 +1,26 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-toastify";
 //import UserListItem from "./UserListItem";
 
 //import { getSender } from "../config/chat";
 import { AuthContext } from "../Context/AuthProvider";
-import io from "socket.io-client";
 import { getSender } from "../config/chat";
 import { ReactComponent as BellIcon } from "../images/notification-bell-svgrepo-com.svg";
 import { FiLogOut } from "react-icons/fi";
-import { FiSearch } from "react-icons/fi";
 import chaticon from "../images/chaticone.png";
 
 const SideBar = () => {
-  const [search, setSearch] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [loadingChat, setLoadingChat] = useState(false);
-  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const [showNotifications, setShowNotifications] = useState(false);
 
-  const {
-    setSelectedChat,
-    selectedChat,
-    user,
-    notification,
-    setNotification,
-    chats,
-    setChats,
-  } = useContext(AuthContext);
+  const { setSelectedChat, user, notification, setNotification } =
+    useContext(AuthContext);
 
   const logoutHandler = () => {
     localStorage.removeItem("user");
     navigate("/register");
   };
 
-  const handleSearch = async () => {
-    if (!search) {
-      toast.error("Please Provide username");
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_URL}/auth/users?search=${search}`,
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-
-      setLoading(false);
-      setSearchResult(data);
-    } catch (error) {
-      toast.error(error);
-    }
-  };
-
-  const accessChat = async (userId) => {
-    try {
-      setLoadingChat(true);
-
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_URL}/chat`,
-        {
-          userId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-
-      if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
-      setSelectedChat(data);
-      setLoadingChat(false);
-      setOpen(false);
-    } catch (error) {
-      toast.error(error);
-    }
-  };
   /*const socket = io(`${process.env.REACT_APP_URL}`);
   useEffect(() => {
     socket.emit("setup", user);
@@ -114,38 +49,16 @@ const SideBar = () => {
     <>
       <div
         style={{
+          height: "calc(100% - 62.5px)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           padding: "0px 20px",
-          background:
-            "linear-gradient(135deg,rgb(200, 226, 241),rgb(108, 179, 247))", // dark slate
+          background: "#4A9BFF",
           color: "#ffffff",
           boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
         }}
       >
-        <div
-          onClick={() => setOpen(!open)}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            cursor: "pointer",
-            color: "#667eea", // لون أزرق جذاب
-            fontWeight: "600",
-            fontSize: "16px",
-            gap: "8px",
-            userSelect: "none",
-            position: "relative",
-            padding: "4px 8px",
-            borderRadius: "6px",
-            transition: "color 0.3s ease",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "#4c51bf")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "#667eea")}
-        >
-          <FiSearch size={20} />
-          Search User
-        </div>
         <h2 style={{ fontSize: "22px", fontWeight: "bold" }}>
           <img src={chaticon} style={{ width: "20px" }} /> ChaTalk
         </h2>
@@ -213,97 +126,6 @@ const SideBar = () => {
         </div>
       </div>
 
-      {open && (
-        <div
-          style={{
-            position: "fixed",
-            left: "0",
-            top: "60px",
-            backgroundColor: "#111827ee",
-            color: "white",
-            height: "75vh",
-            width: "32%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "20px",
-            backdropFilter: "blur(6px)",
-            borderTopRightRadius: "12px",
-            borderBottomRightRadius: "12px",
-            boxShadow: "4px 0 12px rgba(0,0,0,0.2)",
-            zIndex: 100,
-          }}
-        >
-          <h2 style={{ marginBottom: "15px", fontSize: "20px" }}>
-            Search Users
-          </h2>
-          {/* <div> */}
-          <input
-            className="input"
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              marginBottom: "10px",
-              fontSize: "15px",
-            }}
-            placeholder="Search by name or email"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <button
-            className="btn"
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "8px",
-              backgroundColor: "#3b82f6",
-              color: "#fff",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "15px",
-              marginBottom: "15px",
-            }}
-            onClick={handleSearch}
-          >
-            Go
-          </button>
-          {/* </div> */}
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            searchResult?.map((user) => (
-              <div
-                key={user._id}
-                style={{
-                  cursor: "pointer",
-                  width: "100%",
-                  backgroundColor: "#f9fafb",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "10px",
-                  textAlign: "left",
-                  padding: "12px 16px",
-                  marginBottom: "10px",
-                  fontWeight: "500",
-                  color: "#111827",
-                  transition: "background-color 0.3s ease",
-                }}
-                onClick={() => accessChat(user._id)}
-                onMouseOver={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#e0f2fe")
-                }
-                onMouseOut={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#f9fafb")
-                }
-              >
-                {user.name}
-              </div>
-            ))
-          )}
-          {loadingChat && <p>Loading Chat...</p>}
-        </div>
-      )}
       {/* Notifications Sidebar */}
       {/* {showNotifications && (
         <div

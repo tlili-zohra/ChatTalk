@@ -666,57 +666,64 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px 20px;
   background-color: #ffffff;
   width: 80%;
-  border: 1.5px solid #d1d5db;
-  box-shadow: 0 6px 18px rgba(102, 126, 234, 0.1);
+  height: calc(100vh - 62.5px);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  max-height: 90vh;
+  max-height: calc(100vh - 62.5px);
   margin-left: 400px;
 }
 /* 📱 Responsive Design */
-@media (max-width: 1024px) {
-  .chat-container {
-    width: 85%;
-    padding: 15px;
-  }
-}
 
 @media (max-width: 768px) {
   .chat-container {
-    width: 95%;
-    padding: 10px;
-    margin-left: 1px;
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+    margin-left: 0px;
   }
 }
 
-@media (max-width: 480px) {
-  .chat-container {
-    width: 100%;
-    padding: 10px;
-    border-radius: 0;
-    box-shadow: none;
-    border: none;
-    margin-left: 1px;
-  }
-}
 /* MyChats.css */
 .mychats-container {
-  border: 1.5px solid #d1d5db;
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px;
   width: 100%;
+  height: calc(100vh - 62.5px);
   max-width: 400px;
   background: white;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: auto;
   /* Add height limit */
-  max-height: 90vh; /* limits container height to 80% of viewport height */
+  border-right: 1px solid rgba(38, 162, 233, 0.3);
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 150px;
+  background-color: #111827ee;
+  color: white;
+  height: 75vh;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  backdrop-filter: blur(6px);
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+@media (max-width: 400px) {
+  .sidebar {
+    width: 100%;
+    border-radius: 0; /* optional: remove rounded corners on small screens */
+  }
 }
 
 .mychats-header {
@@ -724,52 +731,53 @@ code {
   font-weight: 600;
   display: flex;
   align-items: center;
+  background: #aad0ff;
   justify-content: space-between;
   width: 100%;
-  padding: 8px 12px;
-  color: #197df0;
-  border-bottom: 1px solid #e2e8f0;
+  height: 94.5px;
+  padding: 12px 12px;
+  color: #ffffff;
+  border-bottom: 1px solid rgb(38, 161, 233, 0.3);
 }
 
 .mychats-list {
   display: flex;
   flex-direction: column;
-  background: white;
+  background: #aad0ff;
   height: 100%;
   width: 100%;
   border-radius: 2px;
   overflow-y: auto;
-  padding: 10px;
-  margin-top: 12px;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
 }
 
 .chat-item {
   cursor: pointer;
-  padding: 14px 24px;
-  margin: 8px 12px;
-  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding-left: 17px;
+  width: 100%;
+  height: 80px;
   transition: background-color 0.3s ease, color 0.3s ease;
   user-select: none;
 }
 
 .chat-item.selected {
-  background-color: #107dd6;
+  background-color: #62a9ff;
   color: white;
   font-weight: 700;
   box-shadow: 0 4px 10px rgba(67, 56, 202, 0.6);
 }
 
 .chat-item.unselected {
-  background-color: #dae3ee;
-  color: #1f2937;
-  font-weight: 500;
+  background-color: #aad0ff;
+  color: #ffff;
+  font-weight: 700;
 }
 
 .new-group-btn {
   width: 170px;
+  background-color: #62a9ff;
   padding: 10px 12px;
-  background: linear-gradient(135deg, rgb(38, 161, 233), rgb(21, 88, 196));
   color: white;
   border: none;
   border-radius: 8px;
@@ -779,30 +787,13 @@ code {
   transition: background-color 0.3s ease;
 }
 
-.new-group-btn:hover {
-  background-color: #4338ca;
-}
-
 @media screen and (max-width: 768px) {
   .mychats-container {
-    width: 90%;
-    padding: 8px;
-  }
-
-  .mychats-header {
-    font-size: 18px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    height: 100vh;
   }
 
   .new-group-btn {
     width: 100%;
-  }
-
-  .chat-item {
-    margin: 6px;
-    padding: 12px 18px;
   }
 }
 /* جديد: زر الهامبورغر */
@@ -828,10 +819,9 @@ code {
     position: fixed;
     top: 0;
     left: -100%;
-    width: 80%;
     height: 100%;
     background: white;
-    z-index: 999;
+    z-index: 11;
     transition: left 0.3s ease-in-out;
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   }
@@ -847,7 +837,7 @@ code {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3);
-    z-index: 998;
+    z-index: 10;
   }
 }
 /*.chat-page {

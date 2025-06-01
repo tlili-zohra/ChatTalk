@@ -10,7 +10,13 @@ const Chatpage = () => {
   return (
     <div className="chat-page">
       {user && <SideBar />}
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          height: "calc(100vh - 62.5px)",
+        }}
+      >
         {user && <MyChats fetchAgain={fetchAgain} />}
         {user && (
           <ChatContainer

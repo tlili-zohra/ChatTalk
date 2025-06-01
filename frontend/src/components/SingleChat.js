@@ -15,7 +15,7 @@ import chaticon from "../images/chaticone.png";
 import EmojiPicker from "emoji-picker-react";
 
 const suprsend = new SuprSend(
-  "SS.PUBK.XLyXa890C4s6JPmEiaPjZQRAqxjhB2mzH7wsS69v_EQ"
+  "SS.PUBK.XLyXa890C4s6JPmEiaPjZQRAqxjhB2mzH7wsS69v_EQ",
 );
 
 let socket, selectedChatCompare;
@@ -49,7 +49,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
 
       setMessages(data);
@@ -77,7 +77,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               "Content-type": "application/json",
               Authorization: `Bearer ${user.token}`,
             },
-          }
+          },
         );
 
         setNewMessage("");
@@ -153,35 +153,38 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               fontSize: "20px",
               padding: "12px 20px",
               width: "100%",
+              height: "87px",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              background:
-                "linear-gradient(135deg,rgb(38, 161, 233),rgb(21, 88, 196))",
-              color: "#ffffff",
-              borderTopLeftRadius: "10px",
-              borderTopRightRadius: "10px",
+              background: "#ffff",
+              color: "#0000",
+              borderBottom: "1px solid rgb(38, 161, 233, 0.3)",
             }}
           >
             <button
               onClick={() => setSelectedChat(undefined)}
               style={{
-                background:
-                  "linear-gradient(135deg,rgb(38, 161, 233),rgb(21, 88, 196))",
+                background: "#4A9BFF",
                 color: "#fff",
                 padding: "8px 18px",
                 border: "none",
                 borderRadius: "8px",
                 cursor: "pointer",
                 fontSize: "14px",
-                boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                 transition: "0.3s",
               }}
             >
               Back
             </button>
             {!selectedChat.isGroupChat ? (
-              <div style={{ fontSize: "22px", fontWeight: "bold" }}>
+              <div
+                style={{
+                  fontSize: "22px",
+                  fontWeight: "bold",
+                  color: "rgb(21, 88, 196)",
+                }}
+              >
                 {getSender(user, selectedChat.users)}
               </div>
             ) : (
@@ -200,11 +203,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
-              padding: "20px",
               backgroundColor: "#f3f4f6",
               width: "100%",
-              height: "calc(96vh - 130px)",
-              borderRadius: "0 0 12px 12px",
+              height: "calc(100vh - 149.5px)",
             }}
           >
             {loading ? (
@@ -220,7 +221,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   padding: "10px",
                   borderRadius: "10px",
                   backgroundColor: "#ffffff",
-                  boxShadow: "inset 0 1px 3px rgba(0, 0, 0, 0.1)",
                 }}
               >
                 <ScrollableChat messages={messages} />
@@ -308,7 +308,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            height: "100vh",
+            height: "calc(100% - 62.5px)",
             textAlign: "center",
             color: "#197df0",
             padding: "20px",
