@@ -652,12 +652,12 @@ code {
 }
 
 .toggle-password svg {
-  color: #ffffff;
+  color: #3caff1;
   transition: color 0.2s ease;
 }
 
 .toggle-password:hover svg {
-  color: #497ceb;
+  color: #0f3da1;
 }
 
 /*end login*/
