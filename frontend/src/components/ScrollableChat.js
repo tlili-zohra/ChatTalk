@@ -1,4 +1,4 @@
-import image from "../images/user.png";
+import image from "../images/user2.png";
 import React, { useRef, useEffect, useContext } from "react";
 import {
   isLastMessage,
@@ -36,7 +36,7 @@ const ScrollableChat = ({ messages }) => {
                   marginTop: "7px",
                   marginRight: "8px",
                   cursor: "pointer",
-                  borderRadius: "50%",
+                  borderRadius: "9999px",
                   width: "36px",
                   height: "36px",
                   border: "2px solid #e5e7eb",
