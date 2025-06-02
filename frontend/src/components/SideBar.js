@@ -8,6 +8,7 @@ import { getSender } from "../config/chat";
 import { ReactComponent as BellIcon } from "../images/notification-bell-svgrepo-com.svg";
 import { FiLogOut } from "react-icons/fi";
 import chaticon from "../images/chaticone.png";
+import chaticonwhite from "../images/chaticon2.png";
 import useravatar from "../images/userlogin.png";
 
 const SideBar = () => {
@@ -61,7 +62,8 @@ const SideBar = () => {
         }}
       >
         <h2 style={{ fontSize: "22px", fontWeight: "bold" }}>
-          <img src={chaticon} style={{ width: "20px" }} /> ChaTalk
+          <img src={chaticonwhite} style={{ width: "20px", color: "white" }} />{" "}
+          ChaTalk
         </h2>
         <div style={{ display: "flex", gap: "10px" }}>
           {/* <button onClick={() => setOpen(true)}>Notification</button> */}
@@ -157,7 +159,7 @@ const SideBar = () => {
                   }}
                   onMouseOver={(e) => {
                     e.currentTarget.style.backgroundColor = "#aad0ff";
-                    e.currentTarget.style.color = "rgba(104, 24, 24, 0.7)";
+                    e.currentTarget.style.color = "rgba(10, 28, 112, 0.7)";
                   }}
                   onMouseOut={(e) => {
                     e.currentTarget.style.backgroundColor = "#4A9BFF";

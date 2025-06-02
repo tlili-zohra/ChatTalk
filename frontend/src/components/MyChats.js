@@ -33,7 +33,7 @@ const MyChats = ({ fetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       setLoading(false);
@@ -55,7 +55,7 @@ const MyChats = ({ fetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
@@ -122,7 +122,7 @@ const MyChats = ({ fetchAgain }) => {
             onMouseLeave={(e) => (e.currentTarget.style.color = "#ffff")}
           >
             <FiSearch size={20} />
-            Search User
+            Search User ...
           </div>
           <GroupChatModal>
             {/* <button className="new-group-btn">New Group Chat</button> */}
@@ -146,7 +146,7 @@ const MyChats = ({ fetchAgain }) => {
                       alt="avatar"
                       style={{
                         background: "#ffff",
-                        height: "48px",
+                        height: "50px",
                         borderRadius: "9999px",
                         marginRight: "12px",
                       }}
@@ -162,7 +162,7 @@ const MyChats = ({ fetchAgain }) => {
                       alt="avatar"
                       style={{
                         background: "#ffff",
-                        height: "48px",
+                        height: "50px",
                         borderRadius: "9999px",
                         marginRight: "12px",
                       }}
