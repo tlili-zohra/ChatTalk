@@ -6,8 +6,10 @@ import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../Context/AuthProvider";
 import groupIcon from "../images/group-add.svg";
 import { FiSearch } from "react-icons/fi";
-import avatar from "../images/user2.png";
-import group from "../images/group-icon.jpg";
+//import avatar from "../images/user2.png";
+//import group from "../images/group-icon.jpg";
+import group from "../images/groupeuser2.svg";
+import avatar from "../images/user4.svg";
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -145,8 +147,7 @@ const MyChats = ({ fetchAgain }) => {
                       src={avatar}
                       alt="avatar"
                       style={{
-                        background: "#ffff",
-                        height: "50px",
+                        height: "40px",
                         borderRadius: "9999px",
                         marginRight: "12px",
                       }}
@@ -161,8 +162,7 @@ const MyChats = ({ fetchAgain }) => {
                       src={group}
                       alt="avatar"
                       style={{
-                        background: "#ffff",
-                        height: "50px",
+                        height: "40px",
                         borderRadius: "9999px",
                         marginRight: "12px",
                       }}
