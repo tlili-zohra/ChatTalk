@@ -270,165 +270,34 @@ const SideBar = () => {
         </div>
       )}*/}
       {showNotifications && (
-        <div
-          style={{
-            position: "absolute",
-            right: "0",
-            top: "60px",
-            backgroundColor: "rgb(141, 191, 241)", // خلفية داكنة هادئة
-            color: "white",
-            height: "75vh",
-            width: "32%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            padding: "20px",
-            overflowY: "auto",
-            borderTopLeftRadius: "16px",
-            borderBottomLeftRadius: "16px",
-            boxShadow: "-6px 0 20px rgba(0,0,0,0.3)",
-            zIndex: 100,
-            animation: "fadeInScale 0.25s ease forwards",
-            transformOrigin: "top left",
-            fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-          }}
-        >
-          {/* مثلث السهم الصغير */}
-          <div
-            style={{
-              position: "relative",
-              top: "-14px",
-              right: "24px",
-              width: 0,
-              height: 0,
-              borderLeft: "12px solid transparent",
-              borderRight: "12px solid transparent",
-              borderBottom: "12px solid rgb(141, 191, 241)",
-              filter: "drop-shadow(-1px 1px 1px rgba(0,0,0,0.1))",
-            }}
-          />
+        <div className="notification-panel">
+          <div className="notification-arrow" />
 
-          {/* رأس النافذة */}
-          <div
-            style={{
-              padding: "16px 24px",
-              backgroundColor: "rgb(8, 83, 158)",
-              fontWeight: "700",
-              fontSize: "20px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              userSelect: "none",
-              width: "100%",
-              borderRadius: "12px",
-              boxShadow: "inset 0 -3px 6px rgba(0,0,0,0.2)",
-            }}
-          >
-            <span> Notifications</span>
-            {/* <span
-              style={{
-                backgroundColor: "#3b82f6",
-                borderRadius: "9999px",
-                padding: "6px 14px",
-                fontSize: "14px",
-                fontWeight: "700",
-                color: "white",
-                minWidth: "30px",
-                textAlign: "center",
-                boxShadow: "0 2px 8px rgba(59, 130, 246, 0.7)",
-                userSelect: "none",
-              }}
-            >
-              {notification.length}
-            </span>*/}
+          <div className="notification-header">
+            <span>Notifications</span>
           </div>
 
-          {/* محتوى الإشعارات */}
-          <div
-            style={{
-              marginTop: "16px",
-              flexGrow: 1,
-              width: "100%",
-              maxHeight: "calc(75vh - 100px)",
-              overflowY: "auto",
-              backgroundColor: "#ffff",
-              color: "#1e293b",
-              borderRadius: "12px",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-            }}
-          >
+          <div className="notification-content">
             {notification.length === 0 ? (
-              <div
-                style={{
-                  padding: "20px",
-                  color: "#64748b",
-                  fontStyle: "italic",
-                  textAlign: "center",
-                  userSelect: "none",
-                }}
-              >
-                No new notifications
-              </div>
+              <div className="notification-empty">No new notifications</div>
             ) : (
               notification.map((notif) => (
                 <div
                   key={notif._id}
+                  className="notification-item"
                   onClick={() => {
                     setSelectedChat(notif.chat);
                     setNotification(notification.filter((n) => n !== notif));
                   }}
-                  style={{
-                    padding: "14px 20px",
-                    borderBottom: "1px solid #e2e8f0",
-                    cursor: "pointer",
-                    transition: "background-color 0.25s ease",
-                    userSelect: "none",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#dbeafe")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.backgroundColor = "transparent")
-                  }
                 >
-                  <strong
-                    style={{
-                      display: "block",
-                      marginBottom: "6px",
-                      fontSize: "16px",
-                    }}
-                  >
+                  <strong className="notification-sender">
                     {getSender(user, notif.chat.users)}
                   </strong>
-                  <div
-                    style={{
-                      fontSize: "15px",
-                      lineHeight: "1.4",
-                      color: "#334155",
-                    }}
-                  >
-                    {notif.message}
-                  </div>
+                  <div className="notification-message">{notif.message}</div>
                 </div>
               ))
             )}
           </div>
-
-          {/* CSS Animations */}
-          <style>
-            {`
-        @keyframes fadeInScale {
-          0% {
-            opacity: 0;
-            transform: scale(0.85);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-      `}
-          </style>
         </div>
       )}
     </>
