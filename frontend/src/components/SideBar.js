@@ -8,11 +8,12 @@ import { getSender } from "../config/chat";
 import { ReactComponent as BellIcon } from "../images/notification-bell-svgrepo-com.svg";
 import { FiLogOut } from "react-icons/fi";
 import chaticon from "../images/chaticone.png";
+import useravatar from "../images/userlogin.png";
 
 const SideBar = () => {
   const navigate = useNavigate();
   const [showNotifications, setShowNotifications] = useState(false);
-
+  const [open, setOpen] = useState(false);
   const { setSelectedChat, user, notification, setNotification } =
     useContext(AuthContext);
 
@@ -97,32 +98,77 @@ const SideBar = () => {
               </span>
             )}
           </button>
-          <button
-            onClick={logoutHandler}
-            style={{
-              color: "white",
-              background: "none", // بدون خلفية
 
-              border: "none",
-              padding: "10px 18px",
-              fontSize: "16px",
-              fontWeight: "bold",
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              cursor: "pointer",
-              transition: "all 0.3s ease-in-out",
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.color = "rgba(239, 68, 68, 0.7)"; // لون داكن عند hover
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.color = "white"; // يرجع للون الأصلي
-            }}
-          >
-            <FiLogOut size={20} />
-            Logout
-          </button>
+          <div style={{ position: "relative", display: "inline-block" }}>
+            <button
+              onClick={() => setOpen(!open)}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                paddingTop: "5px",
+                gap: "10px",
+                color: "white",
+                fontWeight: "bold",
+                fontSize: "16px",
+              }}
+            >
+              <img
+                src={useravatar}
+                alt="avatar"
+                style={{
+                  width: "35px",
+                  height: "35px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  border: "2px solid white",
+                }}
+              />
+              {user?.name || "User"}
+            </button>
+
+            {open && (
+              <div
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  marginTop: "8px",
+                  backgroundColor: "#4A9BFF",
+                  borderRadius: "10px",
+                  minWidth: "140px",
+                  zIndex: 1000,
+                }}
+              >
+                <button
+                  onClick={logoutHandler}
+                  style={{
+                    width: "100%",
+                    padding: "10px 18px",
+                    background: "none",
+                    border: "none",
+                    color: "white",
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    borderRadius: "10px",
+                    textAlign: "left",
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.backgroundColor = "#aad0ff";
+                    e.currentTarget.style.color = "rgba(104, 24, 24, 0.7)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.backgroundColor = "#4A9BFF";
+                    e.currentTarget.style.color = "white";
+                  }}
+                >
+                  <FiLogOut size={15} /> Logout
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
