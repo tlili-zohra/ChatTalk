@@ -15,7 +15,7 @@ import chaticon from "../images/chaticone.png";
 import EmojiPicker from "emoji-picker-react";
 
 const suprsend = new SuprSend(
-  "SS.PUBK.XLyXa890C4s6JPmEiaPjZQRAqxjhB2mzH7wsS69v_EQ",
+  "SS.PUBK.XLyXa890C4s6JPmEiaPjZQRAqxjhB2mzH7wsS69v_EQ"
 );
 
 let socket, selectedChatCompare;
@@ -49,7 +49,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       setMessages(data);
@@ -62,7 +62,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
   };
 
-  const sendMessage = async (e) => {
+  /*const sendMessage = async (e) => {
     if (e.key === "Enter" && newMessage) {
       socket.emit("stop-typing", selectedChat._id);
       try {
@@ -77,7 +77,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               "Content-type": "application/json",
               Authorization: `Bearer ${user.token}`,
             },
-          },
+          }
         );
 
         setNewMessage("");
@@ -88,6 +88,42 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       } catch (error) {
         toast.error(error);
       }
+    }
+  };
+  */
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
+  };
+  const sendMessage = async () => {
+    if (!newMessage.trim()) return;
+
+    socket.emit("stop-typing", selectedChat._id);
+
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_URL}/message`,
+        {
+          message: newMessage,
+          chatId: selectedChat,
+        },
+        {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+
+      setNewMessage("");
+      setShowEmojiBox(false);
+      socket.emit("new-message", data);
+      setMessages([...messages, data]);
+      suprsend.track("NEW_MSG");
+    } catch (error) {
+      toast.error("Failed to send message");
     }
   };
   useEffect(() => {
@@ -294,8 +330,22 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                       setNewMessage(e.target.value);
                       typingHandler(e);
                     }}
-                    onKeyDown={sendMessage}
+                    onKeyDown={handleKeyDown}
                   />
+                  <button
+                    style={{
+                      color: "rgb(21, 88, 196)",
+                      padding: "10px",
+                      border: "none",
+                      background: "transparent",
+                      marginLeft: "8px",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                    }}
+                    onClick={sendMessage}
+                  >
+                    <span className="arrow">➤</span>
+                  </button>
                 </div>
               </div>
             </div>
