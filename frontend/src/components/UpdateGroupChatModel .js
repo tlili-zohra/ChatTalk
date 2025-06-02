@@ -144,7 +144,7 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       <button
         onClick={() => setIsOpen(true)}
         style={{
-          backgroundColor: "#4A90E2",
+          background: "rgb(21, 88, 196)",
           color: "#fff",
           padding: "10px 25px",
           border: "none",

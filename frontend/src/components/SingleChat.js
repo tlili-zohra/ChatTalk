@@ -189,7 +189,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               fontSize: "20px",
               padding: "12px 20px",
               width: "100%",
-              height: "87px",
+              height: "84px",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",

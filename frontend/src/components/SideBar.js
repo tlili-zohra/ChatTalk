@@ -17,6 +17,11 @@ const SideBar = () => {
   const [open, setOpen] = useState(false);
   const { setSelectedChat, user, notification, setNotification } =
     useContext(AuthContext);
+  /*  setIsAuthenticated(false);
+  if (user) {
+    setUser({ ...user, online: false });  // 2. تحديث حالة online (اختياري في حالة استخدامك فقط بالفرونت)
+  }
+  */
 
   const logoutHandler = () => {
     localStorage.removeItem("user");
@@ -158,11 +163,11 @@ const SideBar = () => {
                     textAlign: "left",
                   }}
                   onMouseOver={(e) => {
-                    e.currentTarget.style.backgroundColor = "#aad0ff";
-                    e.currentTarget.style.color = "rgba(10, 28, 112, 0.7)";
+                    e.currentTarget.style.backgroundColor = "#dae8fa";
+                    e.currentTarget.style.color = "#4a9bff";
                   }}
                   onMouseOut={(e) => {
-                    e.currentTarget.style.backgroundColor = "#4A9BFF";
+                    e.currentTarget.style.backgroundColor = "#4a9bff";
                     e.currentTarget.style.color = "white";
                   }}
                 >
