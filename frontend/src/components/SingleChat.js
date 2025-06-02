@@ -194,7 +194,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               justifyContent: "space-between",
               alignItems: "center",
               background: "#ffff",
-              color: "#0000",
+              color: "#4a9bff",
               borderBottom: "1px solid rgb(38, 161, 233, 0.3)",
             }}
           >
@@ -218,7 +218,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 style={{
                   fontSize: "22px",
                   fontWeight: "bold",
-                  color: "rgb(21, 88, 196)",
+                  color: "rgb(32, 87, 177)",
                 }}
               >
                 {getSender(user, selectedChat.users)}
@@ -281,7 +281,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <div
                 style={{
                   width: "100%",
-                  backgroundColor: "#e5e7eb",
+                  backgroundColor: "#dae8fa",
                   borderRadius: "10px",
                   padding: "8px 10px",
                   display: "flex",
@@ -300,7 +300,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 <div
                   style={{
                     width: "100%",
-                    backgroundColor: "#e5e7eb",
+                    backgroundColor: "#ffff",
                     borderRadius: "10px",
                     padding: "8px 10px",
                     display: "flex",
@@ -334,7 +334,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   />
                   <button
                     style={{
-                      color: "rgb(21, 88, 196)",
+                      color: "rgb(7, 65, 158)",
                       padding: "10px",
                       border: "none",
                       background: "transparent",
