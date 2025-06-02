@@ -61,7 +61,7 @@ const SideBar = () => {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "0px 20px",
-          background: "#4A9BFF",
+          background: "rgb(1, 63, 163)",
           color: "#ffffff",
           boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
         }}
@@ -142,7 +142,7 @@ const SideBar = () => {
                   position: "absolute",
                   right: 0,
                   marginTop: "8px",
-                  backgroundColor: "#4A9BFF",
+                  backgroundColor: "rgb(1, 63, 163)",
                   borderRadius: "10px",
                   minWidth: "140px",
                   zIndex: 1000,
@@ -163,11 +163,11 @@ const SideBar = () => {
                     textAlign: "left",
                   }}
                   onMouseOver={(e) => {
-                    e.currentTarget.style.backgroundColor = "#dae8fa";
-                    e.currentTarget.style.color = "#4a9bff";
+                    e.currentTarget.style.backgroundColor = "#4a9bff";
+                    e.currentTarget.style.color = "white";
                   }}
                   onMouseOut={(e) => {
-                    e.currentTarget.style.backgroundColor = "#4a9bff";
+                    e.currentTarget.style.backgroundColor = "rgb(1, 63, 163)";
                     e.currentTarget.style.color = "white";
                   }}
                 >

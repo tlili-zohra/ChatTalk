@@ -110,7 +110,7 @@ const MyChats = ({ fetchAgain }) => {
               display: "inline-flex",
               alignItems: "center",
               cursor: "pointer",
-              color: "#ffff",
+              color: "#4a9bff",
               fontWeight: "600",
               fontSize: "16px",
               gap: "8px",
@@ -120,8 +120,8 @@ const MyChats = ({ fetchAgain }) => {
               borderRadius: "6px",
               transition: "color 0.3s ease",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#ffff")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#ffff")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#104e96")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#4a9bff")}
           >
             <FiSearch size={20} />
             Search User ...
