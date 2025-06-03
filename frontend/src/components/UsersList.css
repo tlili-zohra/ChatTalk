@@ -39,12 +39,6 @@
   width: 0px; /* Chrome, Safari */
   background: transparent;
 }
-@media (max-width: 400px) {
-  .sidebar {
-    width: 100%;
-    border-radius: 0; /* optional: remove rounded corners on small screens */
-  }
-}
 
 .mychats-header {
   font-size: 22px;
@@ -226,4 +220,7 @@
 
 .user-item:hover {
   background-color: #e0f2fe;
+}
+.connected {
+  color: green;
 }

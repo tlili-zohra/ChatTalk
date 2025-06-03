@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import "./GroupChatModal.css";
 import UserBadgeItem from "./UserBadgeItem";
-import UserListItem from "./UserListItem";
+import UserListItem from "./ui/UserListItem";
 import { toast } from "react-toastify";
 import { AuthContext } from "../Context/AuthProvider";
 
@@ -30,7 +30,7 @@ const GroupChatModal = ({ children }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
 
       setLoading(false);
@@ -71,7 +71,7 @@ const GroupChatModal = ({ children }) => {
             "Content-type": "application/json",
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
       setChats([data, ...chats]);
       setIsOpen(false);

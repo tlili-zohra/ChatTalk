@@ -14,6 +14,7 @@ import path from "path";
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
+const connectedUsers = new Map();
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -47,8 +48,15 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("Socket connected " + socket.id);
   socket.on("setup", (userData) => {
+    if (!userData?._id) {
+      console.log("Invalid userData, missing _id");
+      return;
+    }
+    connectedUsers.set(userData._id, socket.id);
     socket.join(userData._id);
     console.log(userData._id + " connected");
+    console.log("connectedUsers", connectedUsers);
+    io.emit("connected-users", Array.from(connectedUsers.keys()));
     socket.emit("connected");
   });
 
@@ -71,7 +79,19 @@ io.on("connection", (socket) => {
       socket.in(user._id).emit("message-received", newMessageReceived);
     });
   });
-
+  socket.on("disconnect", () => {
+    console.log("Socket disconnected " + socket.id);
+    // Find and remove user from connectedUsers
+    for (const [userId, socketId] of connectedUsers) {
+      if (socketId === socket.id) {
+        connectedUsers.delete(userId);
+        console.log(`${userId} disconnected`);
+        // Broadcast updated user list
+        io.emit("connected-users", Array.from(connectedUsers.keys()));
+        break;
+      }
+    }
+  });
   socket.off("setup", () => {
     console.log("Socket disconnected");
     socket.leave(userData._id);

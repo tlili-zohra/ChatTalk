@@ -14,9 +14,10 @@ import UpdateGroupChatModel from "./UpdateGroupChatModel ";
 import chaticon from "../images/chaticone.png";
 import EmojiPicker from "emoji-picker-react";
 import "./SingleChat.css";
+import { ChatHeader } from "./ChatHeader";
 
 const suprsend = new SuprSend(
-  "SS.PUBK.XLyXa890C4s6JPmEiaPjZQRAqxjhB2mzH7wsS69v_EQ"
+  "SS.PUBK.XLyXa890C4s6JPmEiaPjZQRAqxjhB2mzH7wsS69v_EQ",
 );
 
 let socket, selectedChatCompare;
@@ -34,8 +35,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     setNewMessage((prev) => prev + emojiData.emoji);
   };
 
-  const { user, notification, setNotification, selectedChat, setSelectedChat } =
-    useContext(AuthContext);
+  const {
+    user,
+    notification,
+    setNotification,
+    selectedChat,
+    setSelectedChat,
+    connectedUsers,
+    setConnectedUsers,
+  } = useContext(AuthContext);
   const fetchMessages = async () => {
     if (!selectedChat) {
       console.log("no selected chat");
@@ -50,7 +58,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
 
       setMessages(data);
@@ -115,7 +123,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             "Content-type": "application/json",
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
 
       setNewMessage("");
@@ -130,11 +138,21 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   useEffect(() => {
     socket = io(`${process.env.REACT_APP_URL}`);
     socket.emit("setup", user);
-    socket.on("connected", () => setSocketConnected(true));
+    socket.on("connected", () => {
+      setSocketConnected(true);
+    });
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop-typing", () => setIsTyping(false));
+    // Listen for connected users
+    socket.on("connected-users", (users) => {
+      setConnectedUsers(users);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
     // eslint-disable-next-line
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     fetchMessages();
@@ -185,28 +203,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     <>
       {selectedChat !== undefined ? (
         <>
-          <div className="chat-header">
-            <button
-              onClick={() => setSelectedChat(undefined)}
-              className="back-button"
-            >
-              Back
-            </button>
-            {!selectedChat.isGroupChat ? (
-              <div className="chat-name">
-                {getSender(user, selectedChat.users)}
-              </div>
-            ) : (
-              <>
-                {selectedChat.chatName.toUpperCase()}
-                <UpdateGroupChatModel
-                  fetchAgain={fetchAgain}
-                  setFetchAgain={setFetchAgain}
-                  fetchMessages={fetchMessages}
-                />
-              </>
-            )}
-          </div>
+          <ChatHeader
+            user={user}
+            fetchMessages={fetchMessages}
+            fetchAgain={fetchAgain}
+            setFetchAgain={setFetchAgain}
+            selectedChat={selectedChat}
+            setSelectedChat={setSelectedChat}
+          />
           <div
             style={{
               display: "flex",

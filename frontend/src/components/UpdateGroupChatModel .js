@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import UserBadgeItem from "./UserBadgeItem";
-import UserListItem from "./UserListItem";
+import UserListItem from "./ui/UserListItem";
 
 import { toast } from "react-toastify";
 import { AuthContext } from "../Context/AuthProvider";
@@ -35,7 +35,7 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
 
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
@@ -64,7 +64,7 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
 
       setLoading(false);
@@ -90,7 +90,7 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
 
       setSelectedChat(data);
@@ -127,7 +127,7 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
 
       setSelectedChat(data);

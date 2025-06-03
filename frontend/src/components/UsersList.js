@@ -10,8 +10,8 @@ import { FiSearch } from "react-icons/fi";
 //import group from "../images/group-icon.jpg";
 import group from "../images/groupeuser2.svg";
 import avatar from "../images/user4.svg";
-import "./mychat.css";
-const MyChats = ({ fetchAgain }) => {
+import "./UsersList.css";
+const UserList = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [open, setOpen] = useState(false);
@@ -19,8 +19,14 @@ const MyChats = ({ fetchAgain }) => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loadingChat, setLoadingChat] = useState(false);
-  const { user, chats, setChats, selectedChat, setSelectedChat } =
-    useContext(AuthContext);
+  const {
+    user,
+    chats,
+    setChats,
+    selectedChat,
+    setSelectedChat,
+    connectedUsers,
+  } = useContext(AuthContext);
   const handleSearch = async () => {
     if (!search) {
       toast.error("Please Provide username");
@@ -36,7 +42,7 @@ const MyChats = ({ fetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
 
       setLoading(false);
@@ -58,7 +64,7 @@ const MyChats = ({ fetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
 
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
@@ -91,7 +97,16 @@ const MyChats = ({ fetchAgain }) => {
     setSelectedChat(chat);
     setShowMobileMenu(false); // close on mobile
   };
-
+  const checkConnexion = (users) => {
+    return users.find((u) => {
+      if (u._id === user._id) return false;
+      const b = connectedUsers.includes(u._id);
+      console.log(b);
+      return b;
+    });
+  };
+  console.log("connected users", connectedUsers);
+  console.log("chats", chats);
   return (
     <>
       {/* Hamburger icon for mobile */}
@@ -121,20 +136,23 @@ const MyChats = ({ fetchAgain }) => {
                 onClick={() => handleChatSelect(chat)}
                 className={`chat-item ${
                   selectedChat === chat ? "selected" : "unselected"
-                }`}
+                } `}
                 key={chat?._id}
               >
                 {!chat?.isGroupChat ? (
                   <>
                     <img src={avatar} alt="avatar" className="chat-avatar" />{" "}
-                    <span style={{ fontSize: "18px" }}>
+                    <span
+                      style={{ fontSize: "18px" }}
+                      className={`${checkConnexion(chat.users) && "connected"}`}
+                    >
                       {getSender(loggedUser, chat?.users)}
                     </span>
                   </>
                 ) : (
                   <>
                     <img src={group} alt="avatar" className="chat-avatar" />{" "}
-                    <span style={{ fontSize: "18px" }}>{chat?.chatName} </span>
+                    <span style={{ fontSize: "18px" }}>{chat?.chatName}</span>
                   </>
                 )}
               </div>
@@ -184,4 +202,4 @@ const MyChats = ({ fetchAgain }) => {
   );
 };
 
-export default MyChats;
+export default UserList;
