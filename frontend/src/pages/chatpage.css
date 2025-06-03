@@ -1,0 +1,5 @@
+.chatpage {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 62.5px);
+}

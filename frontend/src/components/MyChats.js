@@ -10,6 +10,7 @@ import { FiSearch } from "react-icons/fi";
 //import group from "../images/group-icon.jpg";
 import group from "../images/groupeuser2.svg";
 import avatar from "../images/user4.svg";
+import "./mychat.css";
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -104,25 +105,7 @@ const MyChats = ({ fetchAgain }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mychats-header">
-          <div
-            onClick={() => setOpen(!open)}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              cursor: "pointer",
-              color: "#4a9bff",
-              fontWeight: "600",
-              fontSize: "16px",
-              gap: "8px",
-              userSelect: "none",
-              position: "relative",
-              padding: "4px 8px",
-              borderRadius: "6px",
-              transition: "color 0.3s ease",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#104e96")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#4a9bff")}
-          >
+          <div onClick={() => setOpen(!open)} className="search-user-trigger">
             <FiSearch size={20} />
             Search User ...
           </div>
@@ -143,30 +126,14 @@ const MyChats = ({ fetchAgain }) => {
               >
                 {!chat?.isGroupChat ? (
                   <>
-                    <img
-                      src={avatar}
-                      alt="avatar"
-                      style={{
-                        height: "40px",
-                        borderRadius: "9999px",
-                        marginRight: "12px",
-                      }}
-                    />{" "}
+                    <img src={avatar} alt="avatar" className="chat-avatar" />{" "}
                     <span style={{ fontSize: "18px" }}>
                       {getSender(loggedUser, chat?.users)}
                     </span>
                   </>
                 ) : (
                   <>
-                    <img
-                      src={group}
-                      alt="avatar"
-                      style={{
-                        height: "40px",
-                        borderRadius: "9999px",
-                        marginRight: "12px",
-                      }}
-                    />{" "}
+                    <img src={group} alt="avatar" className="chat-avatar" />{" "}
                     <span style={{ fontSize: "18px" }}>{chat?.chatName} </span>
                   </>
                 )}
@@ -184,34 +151,12 @@ const MyChats = ({ fetchAgain }) => {
           </h2>
           {/* <div> */}
           <input
-            className="input"
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              marginBottom: "10px",
-              fontSize: "15px",
-            }}
+            className="chat-input"
             placeholder="Search by name or email"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button
-            className="btn"
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "8px",
-              backgroundColor: "#3b82f6",
-              color: "#fff",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "15px",
-              marginBottom: "15px",
-            }}
-            onClick={handleSearch}
-          >
+          <button className="go-button" onClick={handleSearch}>
             Go
           </button>
           {/* </div> */}
@@ -221,28 +166,8 @@ const MyChats = ({ fetchAgain }) => {
             searchResult?.map((user) => (
               <div
                 key={user._id}
-                style={{
-                  display: "flex",
-
-                  cursor: "pointer",
-                  width: "100%",
-                  backgroundColor: "#f9fafb",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "10px",
-                  textAlign: "left",
-                  padding: "12px 16px",
-                  marginBottom: "10px",
-                  fontWeight: "500",
-                  color: "#111827",
-                  transition: "background-color 0.3s ease",
-                }}
+                className="user-item"
                 onClick={() => accessChat(user._id)}
-                onMouseOver={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#e0f2fe")
-                }
-                onMouseOut={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#f9fafb")
-                }
               >
                 {user.name}
               </div>

@@ -13,6 +13,7 @@ import { AuthContext } from "../Context/AuthProvider";
 import UpdateGroupChatModel from "./UpdateGroupChatModel ";
 import chaticon from "../images/chaticone.png";
 import EmojiPicker from "emoji-picker-react";
+import "./SingleChat.css";
 
 const suprsend = new SuprSend(
   "SS.PUBK.XLyXa890C4s6JPmEiaPjZQRAqxjhB2mzH7wsS69v_EQ"
@@ -184,43 +185,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     <>
       {selectedChat !== undefined ? (
         <>
-          <div
-            style={{
-              fontSize: "20px",
-              padding: "12px 20px",
-              width: "100%",
-              height: "84px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              background: "#ffff",
-              color: "#4a9bff",
-              borderBottom: "1px solid rgb(38, 161, 233, 0.3)",
-            }}
-          >
+          <div className="chat-header">
             <button
               onClick={() => setSelectedChat(undefined)}
-              style={{
-                background: "#4A9BFF",
-                color: "#fff",
-                padding: "8px 18px",
-                border: "none",
-                borderRadius: "8px",
-                cursor: "pointer",
-                fontSize: "14px",
-                transition: "0.3s",
-              }}
+              className="back-button"
             >
               Back
             </button>
             {!selectedChat.isGroupChat ? (
-              <div
-                style={{
-                  fontSize: "22px",
-                  fontWeight: "bold",
-                  color: "rgb(32, 87, 177)",
-                }}
-              >
+              <div className="chat-name">
                 {getSender(user, selectedChat.users)}
               </div>
             ) : (
@@ -245,32 +218,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             }}
           >
             {loading ? (
-              <div tyle={{ alignSelf: "center", margin: "auto" }}>
-                Loading...
-              </div>
+              <div className="loading">Loading...</div>
             ) : (
-              <div
-                className="message"
-                style={{
-                  flexGrow: 1,
-                  overflowY: "auto",
-                  padding: "10px",
-                  borderRadius: "10px",
-                  backgroundColor: "#ffffff",
-                }}
-              >
+              <div className="message">
                 <ScrollableChat messages={messages} />
               </div>
             )}
-            <div style={{ marginTop: "10px", width: "100%" }}>
+            <div className="input-area-wrapper">
               {isTyping && selectedChat.isGroupChat ? (
-                <div
-                  style={{
-                    color: "#6b7280",
-                    marginBottom: "8px",
-                    fontSize: "14px",
-                  }}
-                >
+                <div className="typing-status">
                   {getSender(user, selectedChat.users)} is typing ...
                 </div>
               ) : isTyping ? (
@@ -278,52 +234,21 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               ) : (
                 <></>
               )}
-              <div
-                style={{
-                  width: "100%",
-                  backgroundColor: "#dae8fa",
-                  borderRadius: "10px",
-                  padding: "8px 10px",
-                  display: "flex",
-                  alignItems: "center",
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-                  position: "relative",
-                }}
-              >
+              <div className="input-area">
                 {showEmojiBox && (
-                  <div
-                    style={{ position: "absolute", bottom: "50px", left: "0" }}
-                  >
+                  <div className="emoji-picker-box">
                     <EmojiPicker onEmojiClick={handleEmojiClick} />
                   </div>
                 )}
-                <div
-                  style={{
-                    width: "100%",
-                    backgroundColor: "#ffff",
-                    borderRadius: "10px",
-                    padding: "8px 10px",
-                    display: "flex",
-                    alignItems: "center",
-                    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-                  }}
-                >
+                <div className="input-inner">
                   <button
                     onClick={() => setShowEmojiBox((prev) => !prev)}
-                    style={{ border: "0px", background: "transparent" }}
+                    className="emoji-button"
                   >
                     😊
                   </button>
                   <input
-                    style={{
-                      width: "95%",
-                      backgroundColor: "white",
-                      border: "none",
-                      borderRadius: "5px",
-                      outline: "none",
-                      padding: "10px",
-                      fontSize: "16px",
-                    }}
+                    className="message-input"
                     placeholder="Enter a message..."
                     value={newMessage}
                     onChange={(e) => {
@@ -332,18 +257,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     }}
                     onKeyDown={handleKeyDown}
                   />
-                  <button
-                    style={{
-                      color: "rgb(7, 65, 158)",
-                      padding: "10px",
-                      border: "none",
-                      background: "transparent",
-                      marginLeft: "8px",
-                      cursor: "pointer",
-                      fontSize: "16px",
-                    }}
-                    onClick={sendMessage}
-                  >
+                  <button className="send-button" onClick={sendMessage}>
                     <span className="arrow">➤</span>
                   </button>
                 </div>
@@ -352,42 +266,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           </div>
         </>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "calc(100% - 62.5px)",
-            textAlign: "center",
-            color: "#197df0",
-            padding: "20px",
-          }}
-        >
+        <div className="no-chat-selected">
           <img
             src={chaticon}
             alt="Click icon"
-            style={{
-              width: "100px",
-              height: "100px",
-              marginBottom: "20px",
-              transition: "transform 0.3s",
-              cursor: "pointer",
-            }}
             onMouseOver={(e) =>
               (e.currentTarget.style.transform = "scale(1.2)")
             }
             onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
           />
-          <p
-            style={{
-              fontSize: "28px",
-              fontWeight: "600",
-              maxWidth: "90%",
-            }}
-          >
-            Click on a user to start a fun conversation!
-          </p>
+          <p>Click on a user to start a fun conversation!</p>
         </div>
       )}
     </>

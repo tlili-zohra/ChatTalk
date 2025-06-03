@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-
+import "./GroupChatModal.css";
 import UserBadgeItem from "./UserBadgeItem";
 import UserListItem from "./UserListItem";
 import { toast } from "react-toastify";
@@ -83,78 +83,36 @@ const GroupChatModal = ({ children }) => {
 
   return (
     <>
-      <span
-        onClick={() => setIsOpen(true)}
-        style={{ cursor: "pointer", color: "#4f46e5", fontWeight: "600" }}
-      >
+      <span onClick={() => setIsOpen(true)} className="groupchat-trigger">
         {children}
       </span>
 
       {isOpen && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 1000,
-            backgroundColor: "rgba(0,0,0,0.6)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "20px",
-          }}
-        >
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              maxWidth: "500px",
-              backgroundColor: "#ffffff",
-              borderRadius: "16px",
-              padding: "30px",
-              boxShadow: "0 12px 24px rgba(0, 0, 0, 0.2)",
-              fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-            }}
-          >
-            {/* Close X */}
+        <div className="groupchat-overlay">
+          <div className="groupchat-modal">
             <button
               onClick={() => setIsOpen(false)}
-              style={{
-                position: "absolute",
-                top: "15px",
-                right: "20px",
-                background: "none",
-                border: "none",
-                fontSize: "20px",
-                fontWeight: "bold",
-                cursor: "pointer",
-                color: "#6b7280",
-              }}
+              className="groupchat-close"
               aria-label="Close"
             >
               ×
             </button>
 
-            <h2 style={{ textAlign: "center", color: "#1f2937" }}>
-              Create Group Chat
-            </h2>
+            <h2 className="groupchat-title">Create Group Chat</h2>
 
             <input
               placeholder="Group Name"
               onChange={(e) => setGroupChatName(e.target.value)}
-              style={inputStyle}
+              className="groupchat-input"
             />
 
             <input
               placeholder="Add Users"
               onChange={(e) => handleSearch(e.target.value)}
-              style={inputStyle}
+              className="groupchat-input"
             />
 
-            {/* Selected Users */}
-            <div style={{ marginTop: "10px" }}>
+            <div className="groupchat-users">
               {selectedUsers.map((u) => (
                 <UserBadgeItem
                   key={u._id}
@@ -164,12 +122,9 @@ const GroupChatModal = ({ children }) => {
               ))}
             </div>
 
-            {/* Search Results */}
-            <div style={{ marginTop: "10px" }}>
+            <div className="groupchat-users">
               {loading ? (
-                <div style={{ textAlign: "center", color: "#6b7280" }}>
-                  Searching...
-                </div>
+                <div className="groupchat-loading">Searching...</div>
               ) : (
                 searchResult
                   ?.slice(0, 4)
@@ -183,29 +138,7 @@ const GroupChatModal = ({ children }) => {
               )}
             </div>
 
-            {/* Create Button */}
-            <button
-              onClick={handleSubmit}
-              style={{
-                width: "100%",
-                marginTop: "25px",
-                padding: "12px",
-                backgroundColor: "#2563eb",
-                color: "white",
-                border: "none",
-                borderRadius: "8px",
-                fontWeight: "600",
-                fontSize: "16px",
-                cursor: "pointer",
-                transition: "background-color 0.3s ease",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.backgroundColor = "#1d4ed8")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.backgroundColor = "#2563eb")
-              }
-            >
+            <button onClick={handleSubmit} className="groupchat-create-btn">
               Create Chat
             </button>
           </div>
@@ -215,15 +148,4 @@ const GroupChatModal = ({ children }) => {
   );
 };
 
-// Reusable input style
-const inputStyle = {
-  width: "100%",
-  marginTop: "15px",
-  padding: "12px 15px",
-  borderRadius: "8px",
-  border: "1.5px solid #d1d5db",
-  fontSize: "16px",
-  outline: "none",
-  transition: "border-color 0.3s ease",
-};
 export default GroupChatModal;

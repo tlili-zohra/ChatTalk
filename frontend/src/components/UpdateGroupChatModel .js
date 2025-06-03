@@ -5,6 +5,7 @@ import UserListItem from "./UserListItem";
 
 import { toast } from "react-toastify";
 import { AuthContext } from "../Context/AuthProvider";
+import "./UpdateGroupChatModel.css";
 
 const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const { user, selectedChat, setSelectedChat } = useContext(AuthContext);
@@ -141,83 +142,24 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
   return (
     <>
-      <button
-        onClick={() => setIsOpen(true)}
-        style={{
-          background: "rgb(21, 88, 196)",
-          color: "#fff",
-          padding: "10px 25px",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-          fontSize: "16px",
-          fontWeight: "500",
-          transition: "all 0.3s ease",
-        }}
-      >
+      <button onClick={() => setIsOpen(true)} className="view-btn">
         View
       </button>
 
       {isOpen && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "rgba(0,0,0,0.6)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 1000,
-          }}
-        >
-          <div
-            style={{
-              width: "600px",
-              maxHeight: "90vh",
-              background: "#fefefe",
-              borderRadius: "20px",
-              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
-              padding: "30px",
-              overflowY: "auto",
-              position: "relative",
-              animation: "fadeIn 0.4s ease-in-out",
-            }}
-          >
+        <div className="modal-overlay">
+          <div className="modal-container">
             <button
               onClick={() => setIsOpen(false)}
-              style={{
-                position: "absolute",
-                top: "15px",
-                right: "20px",
-                fontSize: "22px",
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                color: "#999",
-              }}
+              className="modal-close"
               title="Close"
             >
               ✕
             </button>
 
-            <h2
-              style={{ textAlign: "center", fontSize: "26px", color: "#333" }}
-            >
-              {selectedChat.chatName}
-            </h2>
+            <h2 className="modal-title">{selectedChat.chatName}</h2>
 
-            <div
-              style={{
-                marginTop: "20px",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "10px",
-                justifyContent: "center",
-              }}
-            >
+            <div className="modal-users">
               {selectedChat.users.map((u) => (
                 <UserBadgeItem
                   key={u._id}
@@ -228,57 +170,35 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
               ))}
             </div>
 
-            <div style={{ marginTop: "30px" }}>
+            <div className="modal-section">
               <input
                 type="text"
                 value={groupChatName}
                 onChange={(e) => setGroupChatName(e.target.value)}
                 placeholder="Enter new group name"
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  borderRadius: "10px",
-                  border: "1px solid #ccc",
-                  fontSize: "16px",
-                  marginBottom: "15px",
-                }}
+                className="modal-input"
               />
               <button
                 onClick={handleRename}
                 disabled={renameloading}
-                style={{
-                  background: "#4CAF50",
-                  color: "#fff",
-                  border: "none",
-                  padding: "10px 20px",
-                  borderRadius: "10px",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                  width: "100%",
-                }}
+                className="modal-update-btn"
               >
                 {renameloading ? "Updating..." : "Update Group Name"}
               </button>
             </div>
 
-            <div style={{ marginTop: "25px" }}>
+            <div className="div-user-add">
               <input
                 type="text"
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder="Search users to add"
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  borderRadius: "10px",
-                  border: "1px solid #ccc",
-                  fontSize: "16px",
-                }}
+                className="user-to-add"
               />
             </div>
 
-            <div style={{ marginTop: "20px" }}>
+            <div className="modal-results">
               {loading ? (
-                <p style={{ textAlign: "center" }}>Loading...</p>
+                <p className="modal-loading">Loading...</p>
               ) : (
                 searchResult?.map((user) => (
                   <UserListItem
@@ -290,18 +210,10 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
               )}
             </div>
 
-            <div style={{ textAlign: "center", marginTop: "30px" }}>
+            <div className="modal-leave-wrapper">
               <button
                 onClick={() => handleRemove(user)}
-                style={{
-                  background: "#e74c3c",
-                  color: "#fff",
-                  border: "none",
-                  padding: "10px 25px",
-                  borderRadius: "10px",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                }}
+                className="modal-leave-btn"
               >
                 Leave Group
               </button>

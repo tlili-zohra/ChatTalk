@@ -1,30 +1,10 @@
+import "./UserListItem.css";
 const UserListItem = ({ user, handleFunction }) => {
   return (
-    <div
-      onClick={handleFunction}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        cursor: "pointer",
-        backgroundColor: "#E8E8E8",
-        padding: "0.5em",
-        marginBottom: "0.5em",
-        borderRadius: "0.5em",
-        color: "black",
-        width: "45%",
-      }}
-      onMouseEnter={(e) => {
-        e.target.style.background = "rgba(94, 155, 247, 0.8)";
-        e.target.style.color = "white";
-      }}
-      onMouseLeave={(e) => {
-        e.target.style.background = "#E8E8E8";
-        e.target.style.color = "black";
-      }}
-    >
+    <div onClick={handleFunction} className="user-list-item">
       <div>
         <div>{user.name}</div>
-        <div style={{ fontSize: "0.75em" }}>
+        <div className="user-email">
           <b>Email : </b>
           {user.email}
         </div>

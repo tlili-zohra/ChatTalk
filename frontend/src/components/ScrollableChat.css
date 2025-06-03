@@ -1,0 +1,41 @@
+.message-container {
+  display: flex;
+}
+
+.message-avatar {
+  margin-top: 7px;
+  margin-right: 8px;
+  cursor: pointer;
+  border-radius: 9999px;
+  width: 36px;
+  height: 36px;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.message-avatar:hover {
+  transform: scale(1.1);
+}
+
+.message-box {
+  color: #111827;
+  border-radius: 12px;
+  padding: 12px 18px;
+  max-width: 70%;
+  font-size: 15px;
+  line-height: 1.4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease;
+  word-break: break-word;
+}
+
+/* الخلفية الخاصة بالرسائل المرسلة من المستخدم الحالي */
+.message-box.sender {
+  background-color: #b9d9fa;
+}
+
+/* الخلفية الخاصة برسائل الآخرين */
+.message-box.receiver {
+  background-color: #a4e8fc;
+}

@@ -662,6 +662,7 @@ code {
 
 /*end login*/
 
+/*
 .chat-container {
   display: flex;
   flex-direction: column;
@@ -674,7 +675,7 @@ code {
   margin-left: 300px;
 }
 /* 📱 Responsive Design */
-
+/*
 @media (max-width: 768px) {
   .chat-container {
     width: 100%;
@@ -684,9 +685,9 @@ code {
     margin-left: 0px;
   }
 }
-
+*/
 /* MyChats.css */
-.mychats-container {
+/*.mychats-container {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -698,7 +699,7 @@ code {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: auto;
   /* Add height limit */
-  border-right: 1px solid rgba(38, 162, 233, 0.3);
+/*  border-right: 1px solid rgba(38, 162, 233, 0.3);
 }
 
 .sidebar {
@@ -723,7 +724,7 @@ code {
   .sidebar {
     width: 100%;
     border-radius: 0; /* optional: remove rounded corners on small screens */
-  }
+/*  }
 }
 
 .mychats-header {
@@ -749,10 +750,10 @@ code {
   border-radius: 2px;
   overflow-y: auto;
   scrollbar-width: none; /* Firefox */
-}
+/*}
 .mychats-list::-webkit-scrollbar {
   width: 0px; /* Chrome, Safari */
-  background: transparent;
+/*  background: transparent;
 }
 
 .chat-item {
@@ -804,7 +805,7 @@ code {
   }
 }
 /* جديد: زر الهامبورغر */
-.hamburger-icon {
+/*.hamburger-icon {
   display: none;
   font-size: 28px;
   padding: 20px 20px;
@@ -813,7 +814,7 @@ code {
 }
 
 /* جديد: القائمة الجانبية على الجوال */
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
   .hamburger-icon {
     display: block;
     background: #4a9bff;
@@ -854,7 +855,7 @@ code {
 }*/
 /* يمكنك وضع هذا داخل ملف notifications.css أو داخل <style> داخل JSX */
 
-.notification-panel {
+/*.notification-panel {
   position: absolute;
   right: 0;
   top: 60px;
@@ -877,7 +878,7 @@ code {
 }
 
 /* سهم صغير */
-.notification-arrow {
+/*.notification-arrow {
   position: relative;
   top: -14px;
   right: 24px;
@@ -890,9 +891,9 @@ code {
 }
 
 /* رأس القائمة */
-.notification-header {
+/*.notification-header {
   padding: 16px 24px;
-  background-color: #4a9bff;
+  background-color: rgb(141, 191, 241);
   color: #ffffff;
   font-weight: 700;
   font-size: 20px;
@@ -950,7 +951,7 @@ code {
 }
 
 /* Animation */
-@keyframes fadeInScale {
+/*@keyframes fadeInScale {
   0% {
     opacity: 0;
     transform: scale(0.85);
@@ -962,7 +963,7 @@ code {
 }
 
 /* ✅ Responsive media query */
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
   .notification-panel {
     width: 90%;
     top: 50px;
@@ -979,3 +980,4 @@ code {
     padding: 10px 16px;
   }
 }
+*/

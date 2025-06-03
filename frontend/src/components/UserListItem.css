@@ -1,0 +1,38 @@
+.user-list-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  border-radius: 0.5em;
+  color: black;
+  width: 45%;
+  transition: all 0.3s ease;
+}
+
+.user-list-item:hover {
+  background-color: rgba(50, 132, 255, 0.8);
+  color: white;
+}
+
+.user-email {
+  font-size: 0.75em;
+}
+@media (max-width: 1024px) {
+  .user-list-item {
+    width: 60%;
+  }
+}
+
+@media (max-width: 768px) {
+  .user-list-item {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-list-item {
+    width: 100%;
+  }
+}

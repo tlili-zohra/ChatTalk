@@ -10,6 +10,7 @@ import { FiLogOut } from "react-icons/fi";
 import chaticon from "../images/chaticone.png";
 import chaticonwhite from "../images/chaticon2.png";
 import useravatar from "../images/userlogin.png";
+import "./SideBar.css"; // استيراد ملف CSS
 
 const SideBar = () => {
   const navigate = useNavigate();
@@ -54,123 +55,32 @@ const SideBar = () => {
   }, [selectedChat]);*/
   return (
     <>
-      <div
-        style={{
-          height: "calc(100% - 62.5px)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "0px 20px",
-          background: "rgb(1, 63, 163)",
-          color: "#ffffff",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-        }}
-      >
-        <h2 style={{ fontSize: "22px", fontWeight: "bold" }}>
+      <div className="header">
+        <h2 className="header-title">
           <img src={chaticonwhite} style={{ width: "20px", color: "white" }} />{" "}
           ChaTalk
         </h2>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div className="header-actions">
           {/* <button onClick={() => setOpen(true)}>Notification</button> */}
           <button
-            style={{
-              background: "transparent", // إزالة الخلفية
-              border: "none", // إزالة الحدود لو موجودة
-              cursor: "pointer",
-              padding: "10px",
-              borderRadius: "8px",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+            className="button-transparent"
             onClick={() => setShowNotifications(!showNotifications)}
           >
             <BellIcon style={{ width: 24, height: 24 }} />
             {notification.length > 0 && (
-              <span
-                style={{
-                  position: "relative",
-                  top: "-6px",
-                  right: "-6px",
-                  background: "#ef4444", // أحمر فاتح
-                  borderRadius: "50%",
-                  color: "#fff",
-                  padding: "4px 8px",
-                  fontSize: "9px",
-                  fontWeight: "700",
-                  boxShadow: "0 0 5px rgba(239, 68, 68, 0.7)",
-                }}
-              >
-                {notification.length}
-              </span>
+              <span className="notification-badge">{notification.length}</span>
             )}
           </button>
 
-          <div style={{ position: "relative", display: "inline-block" }}>
-            <button
-              onClick={() => setOpen(!open)}
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                paddingTop: "5px",
-                gap: "10px",
-                color: "white",
-                fontWeight: "bold",
-                fontSize: "16px",
-              }}
-            >
-              <img
-                src={useravatar}
-                alt="avatar"
-                style={{
-                  width: "35px",
-                  height: "35px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  border: "2px solid white",
-                }}
-              />
+          <div className="user-dropdown">
+            <button onClick={() => setOpen(!open)} className="user-button">
+              <img src={useravatar} alt="avatar" className="user-avatar" />
               {user?.name || "User"}
             </button>
 
             {open && (
-              <div
-                style={{
-                  position: "absolute",
-                  right: 0,
-                  marginTop: "8px",
-                  backgroundColor: "rgb(1, 63, 163)",
-                  borderRadius: "10px",
-                  minWidth: "140px",
-                  zIndex: 1000,
-                }}
-              >
-                <button
-                  onClick={logoutHandler}
-                  style={{
-                    width: "100%",
-                    padding: "10px 18px",
-                    background: "none",
-                    border: "none",
-                    color: "white",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                    borderRadius: "10px",
-                    textAlign: "left",
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.backgroundColor = "#4a9bff";
-                    e.currentTarget.style.color = "white";
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.backgroundColor = "rgb(1, 63, 163)";
-                    e.currentTarget.style.color = "white";
-                  }}
-                >
+              <div className="dropdown-menu">
+                <button onClick={logoutHandler} className="dropdown-button">
                   <FiLogOut size={15} /> Logout
                 </button>
               </div>
