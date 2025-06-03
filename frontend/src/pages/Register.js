@@ -1,25 +1,30 @@
-import React, { useContext, useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "./Context/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const Login = () => {
-  const { setIsAuthenticated, setUser } = useContext(AuthContext);
+import { AuthContext } from "../Context/AuthProvider";
+import "./Registre.css";
+const Register = () => {
+  const { isAuthenticated, setIsAuthenticated, setUser } =
+    useContext(AuthContext);
+  const [name, setName] = useState(""); // Add this
   const [email, setEmail] = useState(""); // Add this
   const [password, setPassword] = useState(""); // Add this
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_URL}/auth/login`,
+        `${process.env.REACT_APP_URL}/auth/register`,
         {
+          name,
           email,
           password,
         },
@@ -29,9 +34,9 @@ const Login = () => {
           },
         }
       );
+
       console.log(data);
-      setIsAuthenticated(true);
-      toast.success(`Welcome! ${data.name}. Please wait...`, {
+      toast.success("Success!", {
         duration: 5000,
         isClosable: true,
         position: "top-center",
@@ -39,13 +44,9 @@ const Login = () => {
 
       localStorage.setItem("user", JSON.stringify(data));
       setUser(data);
-      setIsAuthenticated(true);
-      setTimeout(() => {
-        navigate("/");
-      }, 4000);
+      navigate("/login");
     } catch (error) {
       console.log(error.response.data.error);
-      setIsAuthenticated(false);
       toast.error(error.response.data.error, {
         duration: 5000,
         isClosable: true,
@@ -65,30 +66,36 @@ const Login = () => {
     }
   }, [navigate]);
   return (
-    <div className="login-container">
-      <ToastContainer />
-      <form className="login-form" onSubmit={handleLogin}>
-        <h2 className="form-title">Welcome Back</h2>
-
+    <div className="register-page">
+      <form className="register-form" onSubmit={handleRegister}>
+        <h2 className="form-title">Register</h2>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="register-input"
+          placeholder="Your full name"
+        />
         <input
           type="email"
           id="email"
-          className="form-input"
-          required
-          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
+          className="register-input"
+          placeholder="Your email address"
         />
-
         <div className="password-field">
           <input
             type={showPassword ? "text" : "password"}
             id="password"
-            className="form-input"
-            required
-            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+            className="register-input"
+            placeholder="Create a password"
           />
           <span
             className="toggle-password"
@@ -98,17 +105,20 @@ const Login = () => {
           </span>
         </div>
 
-        <button type="submit" className="form-button">
-          Log In
-        </button>
-
-        <p className="form-footer">
-          Don’t have an account?{" "}
-          <Link to="/register" className="register-link">
+        <div className="register-buttons">
+          <button type="submit" className="btn-register">
             Register
-          </Link>
-        </p>
+          </button>
+          <button
+            type="button"
+            className="btn-login"
+            onClick={() => navigate("/login")}
+          >
+            Log In
+          </button>
+        </div>
       </form>
+
       <div className="bubbles">
         {Array.from({ length: 12 }).map((_, i) => (
           <span key={i}></span>
@@ -117,4 +127,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default Register;
