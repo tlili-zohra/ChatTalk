@@ -174,7 +174,9 @@ const UserList = ({ fetchAgain }) => {
                 ) : (
                   <>
                     <img src={group} alt="avatar" className="chat-avatar" />{" "}
-                    <span style={{ fontSize: "18px" }}>{chat?.chatName}</span>
+                    <span style={{ fontSize: "18px", marginLeft: "20px" }}>
+                      {chat?.chatName}
+                    </span>
                   </>
                 )}
               </div>
