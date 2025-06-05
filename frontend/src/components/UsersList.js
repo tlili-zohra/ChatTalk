@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import GroupChatModal from "./GroupChatModal";
 import { getSender } from "../config/chat";
@@ -42,7 +42,7 @@ const UserList = ({ fetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       setLoading(false);
@@ -64,7 +64,7 @@ const UserList = ({ fetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
@@ -92,7 +92,22 @@ const UserList = ({ fetchAgain }) => {
     setLoggedUser(JSON.parse(localStorage.getItem("user")));
     fetchChats();
   }, [fetchAgain]);
+  const searchResultRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutsidesearchResult = (event) => {
+      if (
+        searchResultRef.current &&
+        !searchResultRef.current.contains(event.target)
+      ) {
+        setOpen(false); // إغلاق الإشعارات
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutsidesearchResult);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsidesearchResult);
+    };
+  }, []);
   const handleChatSelect = (chat) => {
     setSelectedChat(chat);
     setShowMobileMenu(false); // close on mobile
@@ -105,8 +120,11 @@ const UserList = ({ fetchAgain }) => {
       return b;
     });
   };
-  console.log("connected users", connectedUsers);
-  console.log("chats", chats);
+  //console.log("connected users", connectedUsers);
+  //console.log("chats", chats);
+  const isUserConnected = (userId) => {
+    return connectedUsers.includes(userId);
+  };
   return (
     <>
       {/* Hamburger icon for mobile */}
@@ -142,10 +160,14 @@ const UserList = ({ fetchAgain }) => {
                 {!chat?.isGroupChat ? (
                   <>
                     <img src={avatar} alt="avatar" className="chat-avatar" />{" "}
-                    <span
-                      style={{ fontSize: "18px" }}
-                      className={`${checkConnexion(chat.users) && "connected"}`}
-                    >
+                    <span className="user-status">
+                      <span
+                        className={
+                          checkConnexion(chat.users)
+                            ? "connected"
+                            : "unconnected"
+                        }
+                      ></span>
                       {getSender(loggedUser, chat?.users)}
                     </span>
                   </>
@@ -163,7 +185,7 @@ const UserList = ({ fetchAgain }) => {
         </div>
       </div>
       {open && (
-        <div style={{}} className="sidebar">
+        <div style={{}} className="sidebar" ref={searchResultRef}>
           <h2 style={{ marginBottom: "15px", fontSize: "20px" }}>
             Search Users
           </h2>
@@ -182,13 +204,22 @@ const UserList = ({ fetchAgain }) => {
             <p>Loading...</p>
           ) : (
             searchResult?.map((user) => (
-              <div
-                key={user._id}
-                className="user-item"
-                onClick={() => accessChat(user._id)}
-              >
-                {user.name}
-              </div>
+              <>
+                <div
+                  key={user._id}
+                  className="user-item"
+                  onClick={() => accessChat(user._id)}
+                >
+                  <span> {user.name}</span>
+                  <span
+                    className={
+                      isUserConnected(user._id)
+                        ? "connectedsearch"
+                        : "unconnectedsearch"
+                    }
+                  ></span>
+                </div>
+              </>
             ))
           )}
           {loadingChat && <p>Loading Chat...</p>}

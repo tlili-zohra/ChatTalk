@@ -17,7 +17,7 @@ import "./SingleChat.css";
 import { ChatHeader } from "./ChatHeader";
 
 const suprsend = new SuprSend(
-  "SS.PUBK.XLyXa890C4s6JPmEiaPjZQRAqxjhB2mzH7wsS69v_EQ",
+  "SS.PUBK.XLyXa890C4s6JPmEiaPjZQRAqxjhB2mzH7wsS69v_EQ"
 );
 
 let socket, selectedChatCompare;
@@ -58,7 +58,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       setMessages(data);
@@ -123,7 +123,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             "Content-type": "application/json",
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       setNewMessage("");
@@ -198,7 +198,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       }
     }, timerLength);
   };
-
+  const isUserConnected = (userId) => {
+    return connectedUsers.includes(userId);
+  };
   return (
     <>
       {selectedChat !== undefined ? (
@@ -210,6 +212,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             setFetchAgain={setFetchAgain}
             selectedChat={selectedChat}
             setSelectedChat={setSelectedChat}
+            isUserConnected={(id) => connectedUsers.includes(id)}
           />
           <div
             style={{

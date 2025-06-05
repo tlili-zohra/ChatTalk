@@ -182,7 +182,6 @@
 .chat-avatar {
   height: 40px;
   border-radius: 9999px; /* Fully rounded (circle) */
-  margin-right: 12px;
 }
 .chat-input {
   width: 100%;
@@ -221,6 +220,42 @@
 .user-item:hover {
   background-color: #e0f2fe;
 }
+.user-status {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  margin-left: 0px;
+}
+
 .connected {
-  color: green;
+  width: 10px;
+  height: 10px;
+  background-color: rgb(87, 240, 87);
+  border-radius: 50%;
+}
+
+.unconnected {
+  width: 10px;
+  height: 10px;
+  background-color: gray;
+  border-radius: 50%;
+}
+
+.connectedsearch,
+.unconnectedsearch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-left: auto; /* يدفع الجيتون لأقصى اليمين */
+  align-self: center;
+}
+
+.connectedsearch {
+  background-color: rgb(87, 240, 87);
+}
+
+.unconnectedsearch {
+  background-color: rgb(175, 172, 172);
 }

@@ -8,7 +8,10 @@ export const ChatHeader = ({
   fetchAgain,
   setFetchAgain,
   fetchMessages,
+  isUserConnected,
 }) => {
+  const otherUser = selectedChat?.users?.find((u) => u._id !== user._id);
+
   return (
     <div className="chat-header">
       <button
@@ -18,7 +21,21 @@ export const ChatHeader = ({
         Back
       </button>
       {!selectedChat.isGroupChat ? (
-        <div className="chat-name">{getSender(user, selectedChat.users)}</div>
+        <div className="chat-name">
+          <span className="user-name">
+            {getSender(user, selectedChat.users)}
+          </span>
+          <span
+            className="user-status"
+            style={{
+              color: isUserConnected(otherUser?._id)
+                ? "rgb(37, 219, 149)"
+                : "gray",
+            }}
+          >
+            {isUserConnected(otherUser?._id) ? "En ligne" : "Hors ligne"}
+          </span>
+        </div>
       ) : (
         <>
           {selectedChat.chatName.toUpperCase()}

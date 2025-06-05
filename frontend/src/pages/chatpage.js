@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import ChatContainer from "../components/ChatContainer";
 import UserList from "../components/UsersList";
-import SideBar from "../components/SideBar";
+import NavBar from "../components/NavBar";
 import { AuthContext } from "../Context/AuthProvider";
 import "./chatpage.css";
 const Chatpage = () => {
@@ -10,7 +10,7 @@ const Chatpage = () => {
 
   return (
     <div>
-      {user && <SideBar />}
+      {user && <NavBar />}
       <div className="chatpage">
         {user && <UserList fetchAgain={fetchAgain} />}
         {user && (

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 //import UserListItem from "./UserListItem";
 
@@ -10,14 +10,17 @@ import { FiLogOut } from "react-icons/fi";
 import chaticon from "../images/chaticone.png";
 import chaticonwhite from "../images/chaticon2.png";
 import useravatar from "../images/userlogin.png";
-import "./SideBar.css"; // استيراد ملف CSS
+import "./NavBar.css"; // استيراد ملف CSS
 
-const SideBar = () => {
+const NavBar = () => {
   const navigate = useNavigate();
   const [showNotifications, setShowNotifications] = useState(false);
   const [open, setOpen] = useState(false);
   const { setSelectedChat, user, notification, setNotification } =
     useContext(AuthContext);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const notificationRef = useRef(null);
+
   /*  setIsAuthenticated(false);
   if (user) {
     setUser({ ...user, online: false });  // 2. تحديث حالة online (اختياري في حالة استخدامك فقط بالفرونت)
@@ -26,9 +29,38 @@ const SideBar = () => {
 
   const logoutHandler = () => {
     localStorage.removeItem("user");
+    setShowDropdown(false); // ⬅️ إغلاق القائمة
     navigate("/register");
   };
+  const dropdownRef = useRef(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpen(false); // ⬅️ إغلاق القائمة إذا ضغطنا خارجها
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  useEffect(() => {
+    const handleClickOutsideNotif = (event) => {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target)
+      ) {
+        setShowNotifications(false); // إغلاق الإشعارات
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutsideNotif);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideNotif);
+    };
+  }, []);
   /*const socket = io(`${process.env.REACT_APP_URL}`);
   useEffect(() => {
     socket.emit("setup", user);
@@ -79,7 +111,7 @@ const SideBar = () => {
             </button>
 
             {open && (
-              <div className="dropdown-menu">
+              <div className="dropdown-menu" ref={dropdownRef}>
                 <button onClick={logoutHandler} className="dropdown-button">
                   <FiLogOut size={15} /> Logout
                 </button>
@@ -180,7 +212,7 @@ const SideBar = () => {
         </div>
       )}*/}
       {showNotifications && (
-        <div className="notification-panel">
+        <div className="notification-panel" ref={notificationRef}>
           <div className="notification-arrow" />
 
           <div className="notification-header">
@@ -214,4 +246,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default NavBar;

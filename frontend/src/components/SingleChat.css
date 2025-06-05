@@ -27,9 +27,21 @@
 }
 
 .chat-name {
-  font-size: 22px;
+  display: flex;
+  flex-direction: column;
   font-weight: bold;
+  align-items: center;
   color: rgb(32, 87, 177);
+}
+
+.chat-name .user-name {
+  font-size: 25px;
+}
+
+.chat-name .user-status {
+  font-size: 13px;
+  font-weight: normal;
+  margin-top: 2px;
 }
 
 /*.chat-body {
