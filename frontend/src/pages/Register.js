@@ -35,7 +35,7 @@ const Register = () => {
         }
       );
 
-      console.log(data);
+      //console.log(data);
       toast.success("Success!", {
         duration: 5000,
         isClosable: true,

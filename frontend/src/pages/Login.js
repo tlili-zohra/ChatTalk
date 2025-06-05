@@ -30,7 +30,7 @@ const Login = () => {
           },
         }
       );
-      console.log(data);
+      //console.log(data);
       setIsAuthenticated(true);
       toast.success(`Welcome! ${data.name}. Please wait...`, {
         duration: 5000,
