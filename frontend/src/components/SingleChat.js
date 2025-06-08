@@ -244,7 +244,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <div className="input-area">
                 {showEmojiBox && (
                   <div className="emoji-picker-box">
-                    <EmojiPicker onEmojiClick={handleEmojiClick} />
+                    <EmojiPicker
+                      onEmojiClick={handleEmojiClick}
+                      style={{ width: "100%" }}
+                    />
                   </div>
                 )}
                 <div className="input-inner">
