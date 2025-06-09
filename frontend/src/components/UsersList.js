@@ -115,7 +115,8 @@ const UserList = ({ fetchAgain }) => {
   const checkConnexion = (users) => {
     return users.find((u) => {
       if (u._id === user._id) return false;
-      const b = connectedUsers.includes(u._id);
+      //const b = connectedUsers.includes(u._id);
+      const b = Array.isArray(connectedUsers) && connectedUsers.includes(u._id);
       console.log(b);
       return b;
     });
@@ -123,7 +124,8 @@ const UserList = ({ fetchAgain }) => {
   //console.log("connected users", connectedUsers);
   //console.log("chats", chats);
   const isUserConnected = (userId) => {
-    return connectedUsers.includes(userId);
+    //return connectedUsers.includes(userId);
+    return Array.isArray(connectedUsers) && connectedUsers.includes(userId);
   };
   return (
     <>

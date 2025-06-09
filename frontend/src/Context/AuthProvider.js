@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
   const [chats, setChats] = useState();
   const [selectedChat, setSelectedChat] = useState();
   const [notification, setNotification] = useState([]);
-  const [connectedUsers, setConnectedUsers] = useState(); // New state for connected users
+  const [connectedUsers, setConnectedUsers] = useState([]); // New state for connected users
 
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
