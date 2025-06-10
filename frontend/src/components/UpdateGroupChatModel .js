@@ -3,7 +3,7 @@ import axios from "axios";
 import UserBadgeItem from "./UserBadgeItem";
 import UserListItem from "./ui/UserListItem";
 
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../Context/AuthProvider";
 import "./UpdateGroupChatModel.css";
 
@@ -35,7 +35,7 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
@@ -64,7 +64,7 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       setLoading(false);
@@ -90,7 +90,7 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       setSelectedChat(data);
@@ -127,7 +127,7 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       setSelectedChat(data);
@@ -145,7 +145,7 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       <button onClick={() => setIsOpen(true)} className="view-btn">
         View
       </button>
-
+      <ToastContainer position="top-right" autoClose={3000} />
       {isOpen && (
         <div className="modal-overlay">
           <div className="modal-container">
