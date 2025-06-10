@@ -106,7 +106,7 @@ const Login = () => {
         <p className="form-footer">
           Don’t have an account?{" "}
           <Link to="/register" className="register-link">
-            Register
+            create account
           </Link>
         </p>
       </form>
