@@ -10,7 +10,7 @@ import "./ScrollableChat.css";
 
 import { AuthContext } from "../Context/AuthProvider";
 
-const ScrollableChat = ({ messages }) => {
+const ScrollableChat = ({ messages, chat }) => {
   const { user } = useContext(AuthContext);
 
   const messagesEndRef = useRef(null);
@@ -33,12 +33,23 @@ const ScrollableChat = ({ messages }) => {
           <div className="message-container" key={m._id}>
             {(isSameSender(messages, m, i, user._id) ||
               isLastMessage(messages, i, user._id)) && (
-              <img
-                className="message-avatar"
-                src={image}
-                alt={m.sender.name}
-                title={m.sender.name} // used for showing tooltip
-              />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  className="message-avatar"
+                  src={image}
+                  alt={m.sender.name}
+                  title={m.sender.name}
+                />
+                {chat.isGroupChat && m.sender._id !== user._id && (
+                  <span className="sender-name">{m.sender.name}</span>
+                )}
+              </div>
             )}
             <div
               className={`message-box ${

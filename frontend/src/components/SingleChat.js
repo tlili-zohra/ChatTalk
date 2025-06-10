@@ -228,7 +228,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <div className="loading">Loading...</div>
             ) : (
               <div className="message">
-                <ScrollableChat messages={messages} />
+                <ScrollableChat messages={messages} chat={selectedChat} />
               </div>
             )}
             <div className="input-area-wrapper">

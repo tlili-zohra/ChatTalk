@@ -39,3 +39,8 @@
 .message-box.receiver {
   background-color: #a4e8fc;
 }
+.sender-name {
+  font-size: 0.75rem;
+  color: #555;
+  margin-bottom: 3px;
+}
