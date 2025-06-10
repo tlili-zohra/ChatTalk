@@ -143,7 +143,6 @@ const UpdateGroupChatModel = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   return (
     <>
       <ToastContainer position="top-right" autoClose={3000} />
-
       <button onClick={() => setIsOpen(true)} className="view-btn">
         View
       </button>

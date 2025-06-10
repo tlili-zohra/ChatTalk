@@ -15,11 +15,23 @@
   background: #4a9bff;
   color: #fff;
   padding: 8px 18px;
+  margin-right: 150px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
   transition: 0.3s;
+}
+@media (max-width: 768px) {
+  .back-button {
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-button {
+    margin-right: 10px;
+  }
 }
 
 .back-button:hover {
