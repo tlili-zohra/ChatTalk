@@ -76,7 +76,7 @@ const NavBar = () => {
     }, {})
   );
   // تجهيز الإشعارات: كل مرسل مرة واحدة مع عدد الرسائل وآخر رسالة
-  const groupedNotifications = Object.values(
+  /* const groupedNotifications = Object.values(
     notification.reduce((acc, curr) => {
       const sender = getSender(user, curr.chat.users);
 
@@ -97,6 +97,44 @@ const NavBar = () => {
             ...curr,
             senderName: sender,
             count: acc[sender].count, // نحتفظ بعدد الرسائل
+          };
+        }
+      }
+
+      return acc;
+    }, {})
+  );
+*/
+  const groupedNotifications = Object.values(
+    notification.reduce((acc, curr) => {
+      const isGroup = curr.chat.isGroupChat;
+      const key = isGroup
+        ? `group-${curr.chat._id}` // لكل مجموعة مفتاح خاص
+        : `user-${getSender(user, curr.chat.users)}`; // لكل شخص مفتاح خاص
+
+      const senderName = isGroup
+        ? curr.chat.chatName
+        : getSender(user, curr.chat.users);
+
+      if (!acc[key]) {
+        acc[key] = {
+          ...curr,
+          senderName,
+          count: 1,
+          isGroup,
+        };
+      } else {
+        acc[key].count += 1;
+
+        const currTime = new Date(curr.time || curr.createdAt);
+        const prevTime = new Date(acc[key].time || acc[key].createdAt);
+
+        if (currTime > prevTime) {
+          acc[key] = {
+            ...curr,
+            senderName,
+            count: acc[key].count,
+            isGroup,
           };
         }
       }
@@ -145,13 +183,14 @@ const NavBar = () => {
             <BellIcon style={{ width: 24, height: 24 }} />
             {notification.length > 0 && (
               <span className="notification-badge">
-                {
+                {/*
                   new Set(
                     notification.map((notif) =>
                       getSender(user, notif.chat.users)
                     )
                   ).size
-                }
+                */}
+                {new Set(notification.map((notif) => notif.chat._id)).size}
               </span>
             )}
           </button>
@@ -281,20 +320,25 @@ const NavBar = () => {
                   className="notification-item"
                   onClick={() => {
                     setSelectedChat(notif.chat);
-                    // إزالة كل الإشعارات من نفس المرسل
+
+                    // احذف فقط إشعارات هذا الشات سواء مجموعة أو فردي
                     setNotification(
-                      notification.filter(
-                        (n) =>
-                          getSender(user, n.chat.users) !== notif.senderName
-                      )
+                      notification.filter((n) => n.chat._id !== notif.chat._id)
                     );
                   }}
                 >
                   <strong className="notification-sender">
-                    {notif.senderName}{" "}
-                    <span style={{ color: "#888", fontSize: "12px" }}>
-                      ({notif.count}
-                      {/*msg{notif.count > 1 ? "s" : ""}*/})
+                    {notif.isGroup
+                      ? `${notif.senderName}`
+                      : `${notif.senderName}`}
+                    <span
+                      style={{
+                        color: "#888",
+                        fontSize: "12px",
+                        marginLeft: "6px",
+                      }}
+                    >
+                      ({notif.count})
                     </span>
                   </strong>
                   <div className="notification-message">
