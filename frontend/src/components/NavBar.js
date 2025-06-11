@@ -61,6 +61,50 @@ const NavBar = () => {
       document.removeEventListener("mousedown", handleClickOutsideNotif);
     };
   }, []);
+  // نحصل على الإشعار الأحدث من كل مرسل
+  const latestNotifications = Object.values(
+    notification.reduce((acc, curr) => {
+      const sender = getSender(user, curr.chat.users);
+      if (
+        !acc[sender] ||
+        new Date(curr.time || curr.createdAt) >
+          new Date(acc[sender].time || acc[sender].createdAt)
+      ) {
+        acc[sender] = curr;
+      }
+      return acc;
+    }, {})
+  );
+  // تجهيز الإشعارات: كل مرسل مرة واحدة مع عدد الرسائل وآخر رسالة
+  const groupedNotifications = Object.values(
+    notification.reduce((acc, curr) => {
+      const sender = getSender(user, curr.chat.users);
+
+      if (!acc[sender]) {
+        acc[sender] = {
+          ...curr,
+          senderName: sender,
+          count: 1,
+        };
+      } else {
+        acc[sender].count += 1;
+
+        // لو كانت الرسالة الحالية أحدث من المخزنة، نحدثها
+        const currTime = new Date(curr.time || curr.createdAt);
+        const prevTime = new Date(acc[sender].time || acc[sender].createdAt);
+        if (currTime > prevTime) {
+          acc[sender] = {
+            ...curr,
+            senderName: sender,
+            count: acc[sender].count, // نحتفظ بعدد الرسائل
+          };
+        }
+      }
+
+      return acc;
+    }, {})
+  );
+
   /*const socket = io(`${process.env.REACT_APP_URL}`);
   useEffect(() => {
     socket.emit("setup", user);
@@ -100,7 +144,15 @@ const NavBar = () => {
           >
             <BellIcon style={{ width: 24, height: 24 }} />
             {notification.length > 0 && (
-              <span className="notification-badge">{notification.length}</span>
+              <span className="notification-badge">
+                {
+                  new Set(
+                    notification.map((notif) =>
+                      getSender(user, notif.chat.users)
+                    )
+                  ).size
+                }
+              </span>
             )}
           </button>
 
@@ -223,19 +275,33 @@ const NavBar = () => {
             {notification.length === 0 ? (
               <div className="notification-empty">No new notifications</div>
             ) : (
-              notification.map((notif) => (
+              groupedNotifications.map((notif) => (
                 <div
                   key={notif._id}
                   className="notification-item"
                   onClick={() => {
                     setSelectedChat(notif.chat);
-                    setNotification(notification.filter((n) => n !== notif));
+                    // إزالة كل الإشعارات من نفس المرسل
+                    setNotification(
+                      notification.filter(
+                        (n) =>
+                          getSender(user, n.chat.users) !== notif.senderName
+                      )
+                    );
                   }}
                 >
                   <strong className="notification-sender">
-                    {getSender(user, notif.chat.users)}
+                    {notif.senderName}{" "}
+                    <span style={{ color: "#888", fontSize: "12px" }}>
+                      ({notif.count}
+                      {/*msg{notif.count > 1 ? "s" : ""}*/})
+                    </span>
                   </strong>
-                  <div className="notification-message">{notif.message}</div>
+                  <div className="notification-message">
+                    {notif.message.length > 40
+                      ? notif.message.slice(0, 40) + "..."
+                      : notif.message}
+                  </div>
                 </div>
               ))
             )}
